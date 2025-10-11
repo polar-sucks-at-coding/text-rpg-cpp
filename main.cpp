@@ -1,5 +1,6 @@
 #include <filesystem>
 #include <ostream>
+#include <pthread.h>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -25,14 +26,12 @@ void notImplemented()
 
 void clearHistory()
 {
-
+    system("clear");
 }
 
 static std::string most_recent_input;
 
 static uint typing_speed = 30; //it's actually the delay between each individual letter, but yk
-
-
 
 
 struct Character
@@ -179,6 +178,42 @@ struct Choice
                 this->assignText("Neutral (they/them/their)");
             }
         }
+        
+        else if (name_of_menu_param == "short_stat_selection")
+        {
+            if (choice_number == 1)
+            {
+                this->assignText("Strength");
+            }
+            else if (choice_number == 2)
+            {
+                this->assignText("Dexterity");
+            }
+            else if (choice_number == 3)
+            {
+                this->assignText("Constitution");
+            }
+            else if (choice_number == 4)
+            {
+                this->assignText("Intelligence");
+            }
+            else if (choice_number == 5)
+            {
+                this->assignText("Wisdom");
+            }
+            else if (choice_number == 6)
+            {
+                this->assignText("Charisma");
+            }
+            else if (choice_number == 7)
+            {
+                this->assignText("Reset changes");
+            }
+            else if (choice_number == 8)
+            {
+                this->assignText("Finish");
+            }
+        }
         else if (name_of_menu_param == "stat_selection")
         {
             if (choice_number == 1)
@@ -205,10 +240,6 @@ struct Choice
             {
                 this->assignText("Charisma (This determines how easily you can convince others, intimidate them, or lie to them and get away with it.)");
             }
-            else if (choice_number == 7)
-            {
-                this->assignText("Finish.");
-            }
         }
 
         this->typeNumberOfChoice(choice_number);
@@ -219,7 +250,7 @@ struct Choice
     {
         std::cout << choice_number;
         std::this_thread::sleep_for(std::chrono::milliseconds(typing_speed));
-        std::cout << " )";
+        std::cout << ") ";
         std::this_thread::sleep_for(std::chrono::milliseconds(typing_speed));
     }
 
@@ -248,27 +279,31 @@ struct Menu
     std::string text;
     std::string name;
     uint amount_of_choices;
+    std::string valid_menu_list = "main_menu main_character_creator gender_picker stat_selection short_stat_selection";
 
 
     public:Menu(std::string name_param)
     {
         this->name = name_param;
 
-        if (this->name == "main_menu")
+        if (valid_menu_list.find(this->name) != std::string::npos)
         {
-            this->mainMenu();
-        }
-        else if (this->name == "main_character_creator")
-        {
-            this->mainCharacterCreator();
-        }
-        else if (this->name == "gender_picker")
-        {
-            this->genderPicker();
-        }
-        else if (this->name == "stat_selection")
-        {
-            this->statSelection();
+            if (name == "main_menu")
+            {
+                this->mainMenu();
+            }
+            else if (name == "main_character_creator")
+            {
+                this->mainCharacterCreator();
+            }
+            else if (name == "gender_picker")
+            {
+                this->genderPicker();
+            }
+            else if (name == "stat_selection")
+            {
+                this->statSelection();
+            }
         }
         else
         {
@@ -278,7 +313,6 @@ struct Menu
 
     void choiceCreator()
     {
-        assignTextAndType("Choose.");
         makeSpace();
 
         for (uint i = 1; i < this->amount_of_choices + 1; i++)
@@ -299,62 +333,135 @@ struct Menu
         return player_decision;
     }
 
+    uint getPlayerIntChoice()
+    {
+        uint player_decision;
+        makeSpace();
+        std::cin >> player_decision;
+        makeSpace();
+
+        clearHistory();
+
+        return player_decision;
+    }
+
+    void statReporter(Character* character)
+    {
+        uint STR;
+        uint DEX;
+        uint CON;
+        uint INT;
+        uint WIS;
+        uint CHA;
+        if (character->type == "main")
+        {
+            assignTextAndType("Current stats:");
+            doubleSpace();
+
+            assignTextAndType("STR: " );
+            std::cout << main_character->STR;
+            makeSpace();
+            assignTextAndType("DEX: ");
+            std::cout << main_character->DEX;
+            makeSpace();
+            assignTextAndType("CON: ");
+            std::cout << main_character->CON;
+            makeSpace();
+            assignTextAndType("INT: ");
+            std::cout << main_character->INT;
+            makeSpace();
+            assignTextAndType("WIS: ");
+            std::cout << main_character->WIS;
+            makeSpace();
+            assignTextAndType("CHA: ");
+            std::cout << main_character->CHA;
+            doubleSpace();
+        }
+        else 
+        {
+            assignTextAndType("Character type not found in stat reporter.");
+        }
+    }
+
     void statSelection()
     {
-        this->amount_of_choices = 7;
-
-        assignTextAndType("Choose your stats");
-        doubleSpace();
-
-        assignTextAndType("Current stats:");
-        makeSpace();
-
-        assignTextAndType("STR: " );
-        std::cout << main_character->STR;
-        makeSpace();
-        assignTextAndType("DEX: ");
-        std::cout << main_character->DEX;
-        makeSpace();
-        assignTextAndType("CON: ");
-        std::cout << main_character->CON;
-        makeSpace();
-        assignTextAndType("INT: ");
-        std::cout << main_character->INT;
-        makeSpace();
-        assignTextAndType("WIS: ");
-        std::cout << main_character->WIS;
-        makeSpace();
-        assignTextAndType("CHA: ");
-        std::cout << main_character->CHA;
-        doubleSpace();
+        this->amount_of_choices = 6;
 
         this->choiceCreator();
 
         std::string stat_choice; 
         uint number_choice;
+        uint points_left = 10;
 
         bool player_is_done = 0;
 
         while (player_is_done == 0)
         {
+            this->amount_of_choices = 8;
+            makeSpace();
+            assignTextAndType("Choose your stats. You have ");
+            std::cout << points_left;
+            assignTextAndType(" points left to distribute as you wish.");
+            doubleSpace();
+
+            this->name = "short_stat_selection";
+            this->statReporter(main_character);
+            this->choiceCreator();
+
             stat_choice = getPlayerChoice();
 
-            if (stat_choice == "7")
+            if (stat_choice == "8")
             {
                 player_is_done = 1;
+            }
+            else if (stat_choice == "7")
+            {
+                main_character->baseStatAssigner();
+                points_left = 10;
             }
             else 
             {
                 if (stat_choice == "1" || "2" || "3" || "4" || "5" || "6")
                 {
-                    assignTextAndType("How high would you like this stat to be?");
-                    makeSpace();
-                    if (stat_choice == "1")
+                    assignTextAndType("How many points would you like to add to this stat?");
+
+                    number_choice = getPlayerIntChoice();
+                    if (number_choice > points_left)
                     {
-                        main_character->STR = number_choice;
+                        assignTextAndType("You don't have enough points.");
                     }
+                    else 
+                    {
+                        if (stat_choice == "1")
+                        {
+                            main_character->STR += number_choice;
+                        }
+                        else if (stat_choice == "2")
+                        {
+                            main_character->DEX += number_choice;
+                        }
+                        else if (stat_choice == "3")
+                        {
+                            main_character->CON += number_choice;
+                        }
+                        else if (stat_choice == "4")
+                        {
+                            main_character->INT += number_choice;
+                        }
+                        else if (stat_choice == "5")
+                        {
+                            main_character->WIS += number_choice;
+                        }
+                        else if (stat_choice == "6")
+                        {
+                            main_character->CHA += number_choice;
+                        }
+                    
+                        points_left -= number_choice;
+                    }
+                    makeSpace();
                 }
-                else if (stat_choice != "7")
+                else if (stat_choice != "8" || "7")
                 {
                     assignTextAndType("Invalid stat.");
                 }
@@ -378,6 +485,9 @@ struct Menu
 
         while (player_is_done == 0)
         {
+            assignTextAndType("Gender: ");
+            std::cout << main_character->gender;
+            makeSpace();
             this->text = "Pick what you want to decide about your character.";
             typeMenuText();
             doubleSpace();
@@ -460,7 +570,7 @@ struct Menu
 
     void mainMenu() //1
     {
-        std::cout << "Main Menu";
+        assignTextAndType("Main Menu");
         doubleSpace();
 
 
