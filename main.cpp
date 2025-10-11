@@ -66,7 +66,7 @@ struct Character
     {
         if (this->type == "main")
         {
-            this->STR = this->DEX = this-> CON = this-> INT = this->WIS = this->CHA = 5;
+            this->STR = this->DEX = this->CON = this->INT = this->WIS = this->CHA = 5;
         }
     }
 
@@ -214,7 +214,6 @@ struct Choice
         this->typeNumberOfChoice(choice_number);
         this->typeText();
     }
-
 
     void typeNumberOfChoice(uint choice_number)
     {
