@@ -2,18 +2,31 @@
 #define HEADER_H
 #include <filesystem>
 #include <iostream>
+
 typedef unsigned int uint;
 
-void makeSpace();
-void doubleSpace();
-void notImplemented();
-void clearHistory();
-void changeTypingSpeed(uint speed);
-void changeFromFastToDefaultTypingSpeed(std::string text);
+class Setting
+{
+    public:
 
-extern uint default_typing_speed;
-extern uint fast_typing_speed;
-extern uint typing_speed; //it's actually the delay between each individual letter, but yk
+    static uint amount_of_settings;
+    static uint default_typing_speed;
+    static Setting* typing_speed;
+    uint value;
+    std::string name;
+    Setting(std::string name);
+};
+
+class Utility
+{
+    public:
+    static void makeSpace();
+    static void doubleSpace();
+    static void notImplemented();
+    static void clearHistory();
+    static void changeTypingSpeed(uint speed);
+    static uint getTypingSpeed();
+};
 
 class Choice
 {
@@ -58,11 +71,12 @@ class Menu
     std::string valid_menu_list = "main_menu main_character_creator gender_picker stat_selection short_stat_selection";
     public:
     Menu(std::string name_param);
+    void settingsMenu();
     void choiceCreator();
     std::string getPlayerChoice();
     uint getPlayerIntChoice();
     void statReporter(Character* character);
-    public:void mainCharacterCreator();
+    void mainCharacterCreator();
     void genderPicker();
     void mainMenu();
     void typeMenuText();

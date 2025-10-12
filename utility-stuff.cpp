@@ -6,17 +6,20 @@
 #include <thread>
 #include "header.h"
 
-void makeSpace()
+
+
+
+void Utility::makeSpace()
 {
-    std::cout << std::endl;
+    std::cout << "\n";
 }
 
-void doubleSpace()
+void Utility::doubleSpace()
 {
     std::cout << "\n\n";
 }
 
-void notImplemented()
+void Utility::notImplemented()
 {
     std::string message = "This isn't implemented yet.";
 
@@ -24,11 +27,11 @@ void notImplemented()
         {
             std::cout << message[i] << std::flush;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(typing_speed));
+            std::this_thread::sleep_for(std::chrono::milliseconds(getTypingSpeed()));
         }
 }
 
-void clearHistory()
+void Utility::clearHistory()
 {
     #ifdef __linux__
     system("clear");
@@ -38,7 +41,12 @@ void clearHistory()
     #endif
 }
 
-void changeTypingSpeed(uint speed)
+void Utility::changeTypingSpeed(uint speed)
 {
-    typing_speed = speed;
+    Setting::typing_speed->value = speed;
+}
+
+uint Utility::getTypingSpeed()
+{
+    return Setting::typing_speed->value;
 }

@@ -10,34 +10,44 @@
     {
         this->name = name_param;
 
-        if (valid_menu_list.find(this->name) != std::string::npos)
+        if (name == "main_menu")
         {
-            if (name == "main_menu")
-            {
-                this->mainMenu();
-            }
-            else if (name == "main_character_creator")
-            {
-                this->mainCharacterCreator();
-            }
-            else if (name == "gender_picker")
-            {
-                this->genderPicker();
-            }
-            else if (name == "stat_selection")
-            {
-                this->statSelection();
-            }
+            this->mainMenu();
         }
-        else
+        else if (name == "main_character_creator")
         {
-            std::cout << "Menu name doesn't exist.";
+            this->mainCharacterCreator();
         }
+        else if (name == "gender_picker")
+        {
+            this->genderPicker();
+        }
+        else if (name == "stat_selection")
+        {
+            this->statSelection();
+        }
+        else if (name == "settings")
+        {
+            this->settingsMenu();
+        }
+        else 
+        {
+            assignTextAndType("Menu name doesn't exist.");
+        }
+    }
+
+    void Menu::settingsMenu()
+    {
+        assignTextAndType("Settings");
+        Utility::doubleSpace();
+        this->amount_of_choices = Setting::amount_of_settings + 2;
+        this->choiceCreator();
+
     }
 
     void Menu::choiceCreator()
     {
-        makeSpace();
+        Utility::makeSpace();
 
         for (uint i = 1; i < this->amount_of_choices + 1; i++)
         {
@@ -48,11 +58,11 @@
     std::string Menu::getPlayerChoice()
     {
         std::string player_decision;
-        makeSpace();
+        Utility::makeSpace();
         std::cin >> player_decision;
-        makeSpace();
+        Utility::makeSpace();
 
-        clearHistory();
+        Utility::clearHistory();
 
         return player_decision;
     }
@@ -60,11 +70,11 @@
     uint Menu::getPlayerIntChoice()
     {
         uint player_decision;
-        makeSpace();
+        Utility::makeSpace();
         std::cin >> player_decision;
-        makeSpace();
+        Utility::makeSpace();
 
-        clearHistory();
+        Utility::clearHistory();
 
         return player_decision;
     }
@@ -80,26 +90,26 @@
         if (character->type == "main")
         {
             assignTextAndType("Current stats:");
-            doubleSpace();
+            Utility::doubleSpace();
 
             assignTextAndType("STR: " );
             std::cout << main_character->STR;
-            makeSpace();
+            Utility::makeSpace();
             assignTextAndType("DEX: ");
             std::cout << main_character->DEX;
-            makeSpace();
+            Utility::makeSpace();
             assignTextAndType("CON: ");
             std::cout << main_character->CON;
-            makeSpace();
+            Utility::makeSpace();
             assignTextAndType("INT: ");
             std::cout << main_character->INT;
-            makeSpace();
+            Utility::makeSpace();
             assignTextAndType("WIS: ");
             std::cout << main_character->WIS;
-            makeSpace();
+            Utility::makeSpace();
             assignTextAndType("CHA: ");
             std::cout << main_character->CHA;
-            doubleSpace();
+            Utility::doubleSpace();
         }
         else 
         {
@@ -112,9 +122,7 @@
         this->amount_of_choices = 6;
 
 
-        changeTypingSpeed(fast_typing_speed);
         this->choiceCreator();
-        changeTypingSpeed(default_typing_speed);
 
         uint stat_choice; 
         uint number_choice;
@@ -125,11 +133,11 @@
         while (player_is_done == 0)
         {
             this->amount_of_choices = 8;
-            makeSpace();
+            Utility::makeSpace();
             this->assignTextAndType("Choose your starting stats. You have ");
             std::cout << points_left;
             this->assignTextAndType(" points left to distribute as you wish.");
-            doubleSpace();
+            Utility::doubleSpace();
 
             this->name = "short_stat_selection";
             this->statReporter(main_character);
@@ -186,7 +194,7 @@
                     
                         points_left -= number_choice;
                     }
-                    makeSpace();
+                    Utility::makeSpace();
                 }
                 else if (stat_choice != 8 || 7)
                 {
@@ -203,7 +211,7 @@
         this->amount_of_choices = 3;
 
         assignTextAndType("Character Creator");
-        doubleSpace();
+        Utility::doubleSpace();
 
         std::string player_choice;
 
@@ -214,10 +222,10 @@
         {
             assignTextAndType("Gender: ");
             assignTextAndType(main_character->gender);
-            doubleSpace();
+            Utility::doubleSpace();
             this->text = "Pick what you want to decide about your character.";
             typeMenuText();
-            doubleSpace();
+            Utility::doubleSpace();
 
             this->choiceCreator();
 
@@ -232,8 +240,6 @@
                 main_character->gender = gender_choice;
                 main_character->pronounAssigner();
 
-                std::cout << "Gender: " << gender_choice;
-                doubleSpace();
             }
             else if (player_choice == "2")
             {
@@ -252,7 +258,7 @@
 
 
         assignTextAndType("Character created!");
-        makeSpace();
+        Utility::makeSpace();
     }
 
     void Menu::genderPicker()
@@ -260,7 +266,7 @@
         this->amount_of_choices = 3;
 
         assignTextAndType("Which gender do you want to be?");
-        doubleSpace();
+        Utility::doubleSpace();
 
         this->choiceCreator();
 
@@ -290,7 +296,7 @@
             else 
             {
                 std::cout << "Invalid gender input";
-                makeSpace();
+                Utility::makeSpace();
             }
         }
     }
@@ -298,20 +304,27 @@
     void Menu::mainMenu()
     {
         this->assignTextAndType("Main Menu");
-        doubleSpace();
+        Utility::doubleSpace();
 
 
         this->amount_of_choices = 3;
         this->choiceCreator();
+
+        std::string player_choice = getPlayerChoice();
             
-        if (getPlayerChoice() == "1")
+        if (player_choice == "1")
         {
             Menu* main_character_creator = new Menu("main_character_creator");
+        }
+
+        else if (player_choice == "3")
+        {
+            Menu* settings = new Menu("settings");
         }
             
         else 
         {
-            notImplemented();
+            Utility::notImplemented();
         }
     }
 
@@ -321,7 +334,7 @@
         {
             std::cout << this->text[i] << std::flush;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(typing_speed));
+            std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
         }
     }
 

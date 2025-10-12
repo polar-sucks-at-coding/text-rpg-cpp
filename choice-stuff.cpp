@@ -122,6 +122,21 @@
                 this->assignText("Charisma (This determines how easily you can convince others, intimidate them, or lie to them and get away with it.)");
             }
         }
+        else if (name_of_menu_param == "settings")
+        {
+            if (choice_number == 1)
+            {
+                this->assignText("Text appearing/typing speed (1 through 100, 50 by default)");
+            }
+            else if (choice_number == Setting::amount_of_settings + 1)
+            {
+                this->assignText("Reset settings");
+            }
+            else if (choice_number == Setting::amount_of_settings + 2)
+            {
+                this->assignText("Finish");
+            }
+        }
 
         this->typeNumberOfChoice(choice_number);
         this->typeText();
@@ -130,9 +145,9 @@
     void Choice::typeNumberOfChoice(uint choice_number)
     {
         std::cout << choice_number;
-        std::this_thread::sleep_for(std::chrono::milliseconds(typing_speed));
+        std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
         std::cout << ") ";
-        std::this_thread::sleep_for(std::chrono::milliseconds(typing_speed));
+        std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
     }
 
     void Choice::typeText()
@@ -141,10 +156,10 @@
         {
             std::cout << this->text[i] << std::flush;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(typing_speed));
+            std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
         }
         
-        makeSpace();
+        Utility::makeSpace();
     }
 
     void Choice::assignText(std::string text_param)
