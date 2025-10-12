@@ -1,5 +1,6 @@
+#ifndef HEADER_H
+#define HEADER_H
 #include <filesystem>
-#ifndef SOME_CLASS_H
 #include <iostream>
 typedef unsigned int uint;
 
@@ -7,10 +8,12 @@ void makeSpace();
 void doubleSpace();
 void notImplemented();
 void clearHistory();
+void changeTypingSpeed(uint speed);
+void changeFromFastToDefaultTypingSpeed(std::string text);
 
-static uint typing_speed = 30; //it's actually the delay between each individual letter, but yk
-
-#define CHOICE_H
+extern uint default_typing_speed;
+extern uint fast_typing_speed;
+extern uint typing_speed; //it's actually the delay between each individual letter, but yk
 
 class Choice
 {
@@ -18,15 +21,10 @@ class Choice
     std::string text;
 
     public:
-
-    void constructor();
     Choice(std::string name_of_menu_param, uint choice_number);
     void typeText();
     void assignText(std::string text_param);
     void typeNumberOfChoice(uint choice_number);
-
-    private:
-
 };
 
 class Character
@@ -71,6 +69,7 @@ class Menu
     void assignTextAndType(std::string text);
     void statSelection();
 };
+
 
 
 static Character* main_character;

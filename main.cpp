@@ -1,6 +1,11 @@
+#include <functional>
+#include <ostream>
 #include <pthread.h>
+#include <set>
 #include <string>
+#include <iostream>
 #include <unistd.h>
+#include <thread>
 #include "header.h"
 
 /*struct Character //backup character struct
@@ -91,6 +96,9 @@ struct CombatAbility
     }
 };
 */
+uint default_typing_speed = 30;
+uint typing_speed = default_typing_speed;
+uint fast_typing_speed = 10;
 
 void mainMenuCreator()
 {
@@ -99,7 +107,8 @@ void mainMenuCreator()
 
 int main()
     {
+        clearHistory();
         mainMenuCreator();
-    
+        
         return 0;
     }

@@ -1,6 +1,9 @@
+#include <ostream>
 #include <pthread.h>
 #include <string>
+#include <iostream>
 #include <unistd.h>
+#include <thread>
 #include "header.h"
 
 Character::Character(std::string type_param, std::string gender_param)

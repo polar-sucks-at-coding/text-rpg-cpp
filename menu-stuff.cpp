@@ -6,7 +6,7 @@
 #include <thread>
 #include "header.h"
 
-Menu::Menu(std::string name_param)
+    Menu::Menu(std::string name_param)
     {
         this->name = name_param;
 
@@ -111,9 +111,12 @@ Menu::Menu(std::string name_param)
     {
         this->amount_of_choices = 6;
 
-        this->choiceCreator();
 
-        std::string stat_choice; 
+        changeTypingSpeed(fast_typing_speed);
+        this->choiceCreator();
+        changeTypingSpeed(default_typing_speed);
+
+        uint stat_choice; 
         uint number_choice;
         uint points_left = 10;
 
@@ -123,60 +126,60 @@ Menu::Menu(std::string name_param)
         {
             this->amount_of_choices = 8;
             makeSpace();
-            assignTextAndType("Choose your stats. You have ");
+            this->assignTextAndType("Choose your starting stats. You have ");
             std::cout << points_left;
-            assignTextAndType(" points left to distribute as you wish.");
+            this->assignTextAndType(" points left to distribute as you wish.");
             doubleSpace();
 
             this->name = "short_stat_selection";
             this->statReporter(main_character);
             this->choiceCreator();
 
-            stat_choice = getPlayerChoice();
+            stat_choice = getPlayerIntChoice();
 
-            if (stat_choice == "8")
+            if (stat_choice == 8)
             {
                 player_is_done = 1;
             }
-            else if (stat_choice == "7")
+            else if (stat_choice == 7)
             {
                 main_character->baseStatAssigner();
                 points_left = 10;
             }
             else 
             {
-                if (stat_choice == "1" || "2" || "3" || "4" || "5" || "6")
+                if (stat_choice == 1 || 2 || 3 || 4 || 5 || 6)
                 {
-                    assignTextAndType("How many points would you like to add to this stat?");
+                    this->assignTextAndType("How many points would you like to add to this stat?");
 
                     number_choice = getPlayerIntChoice();
                     if (number_choice > points_left)
                     {
-                        assignTextAndType("You don't have enough points.");
+                        this->assignTextAndType("You don't have enough points.");
                     }
                     else 
                     {
-                        if (stat_choice == "1")
+                        if (stat_choice == 1)
                         {
                             main_character->STR += number_choice;
                         }
-                        else if (stat_choice == "2")
+                        else if (stat_choice == 2)
                         {
                             main_character->DEX += number_choice;
                         }
-                        else if (stat_choice == "3")
+                        else if (stat_choice == 3)
                         {
                             main_character->CON += number_choice;
                         }
-                        else if (stat_choice == "4")
+                        else if (stat_choice == 4)
                         {
                             main_character->INT += number_choice;
                         }
-                        else if (stat_choice == "5")
+                        else if (stat_choice == 5)
                         {
                             main_character->WIS += number_choice;
                         }
-                        else if (stat_choice == "6")
+                        else if (stat_choice == 6)
                         {
                             main_character->CHA += number_choice;
                         }
@@ -185,16 +188,16 @@ Menu::Menu(std::string name_param)
                     }
                     makeSpace();
                 }
-                else if (stat_choice != "8" || "7")
+                else if (stat_choice != 8 || 7)
                 {
-                    assignTextAndType("Invalid stat.");
+                    this->assignTextAndType("Invalid stat.");
                 }
             }
         }
     }
 
-    void Menu::mainCharacterCreator() //2
-    {
+    void Menu::mainCharacterCreator()
+    {    
         main_character = new Character("main", "neutral");
 
         this->amount_of_choices = 3;
@@ -210,8 +213,8 @@ Menu::Menu(std::string name_param)
         while (player_is_done == 0)
         {
             assignTextAndType("Gender: ");
-            std::cout << main_character->gender;
-            makeSpace();
+            assignTextAndType(main_character->gender);
+            doubleSpace();
             this->text = "Pick what you want to decide about your character.";
             typeMenuText();
             doubleSpace();
@@ -252,7 +255,7 @@ Menu::Menu(std::string name_param)
         makeSpace();
     }
 
-    void Menu::genderPicker() //3
+    void Menu::genderPicker()
     {
         this->amount_of_choices = 3;
 
@@ -292,9 +295,9 @@ Menu::Menu(std::string name_param)
         }
     }
 
-    void Menu::mainMenu() //1
+    void Menu::mainMenu()
     {
-        assignTextAndType("Main Menu");
+        this->assignTextAndType("Main Menu");
         doubleSpace();
 
 
