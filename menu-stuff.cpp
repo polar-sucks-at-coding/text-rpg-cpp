@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <ostream>
 #include <pthread.h>
 #include <string>
@@ -41,7 +42,24 @@
         assignTextAndType("Settings");
         Utility::doubleSpace();
         this->amount_of_choices = Setting::amount_of_settings + 2;
-        this->choiceCreator();
+        bool player_is_done = 0;
+        while (player_is_done == 0)
+        {
+            this->choiceCreator();
+            int player_choice = getPlayerIntChoice(0);
+            if (player_choice == 1)
+            {
+                Setting::typing_speed->value =  101 - slider(1, 100);
+            }
+            else if (player_choice == amount_of_choices - 1)
+            {
+                Setting::resetSettings();
+            }
+            else if (player_choice == amount_of_choices)
+            {
+                player_is_done = 1;
+            }
+        }
 
     }
 
@@ -55,26 +73,33 @@
         }   
     }
 
-    std::string Menu::getPlayerChoice()
+    std::string Menu::getPlayerChoice(bool clear_history = 1)
     {
         std::string player_decision;
         Utility::makeSpace();
         std::cin >> player_decision;
         Utility::makeSpace();
 
-        Utility::clearHistory();
+        if (clear_history == 1)
+        {
+            Utility::clearHistory();
+        }
+        
 
         return player_decision;
     }
 
-    uint Menu::getPlayerIntChoice()
+    uint Menu::getPlayerIntChoice(bool clear_history = 1)
     {
         uint player_decision;
         Utility::makeSpace();
         std::cin >> player_decision;
         Utility::makeSpace();
 
-        Utility::clearHistory();
+        if (clear_history == 1)
+        {
+            Utility::clearHistory();
+        }
 
         return player_decision;
     }
@@ -342,4 +367,20 @@
     {
         this->text = text;
         typeMenuText();
+    }
+
+    uint Menu::slider(uint min_value, uint max_value)
+    {
+        assignTextAndType("Assign a number ");
+        assignTextAndType(std::to_string(min_value));
+        assignTextAndType(" through ");
+        assignTextAndType(std::to_string(max_value));
+        assignTextAndType(" this value.");
+        Utility::makeSpace();
+        
+        uint value;
+
+        std::cin >> value;
+        return value;
+        
     }

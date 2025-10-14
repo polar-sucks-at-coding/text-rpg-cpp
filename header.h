@@ -2,6 +2,7 @@
 #define HEADER_H
 #include <filesystem>
 #include <iostream>
+#include <vector>
 
 typedef unsigned int uint;
 
@@ -15,6 +16,8 @@ class Setting
     uint value;
     std::string name;
     Setting(std::string name);
+    static void resetSettings();
+     static std::vector<Setting*> settings;
 };
 
 class Utility
@@ -73,8 +76,8 @@ class Menu
     Menu(std::string name_param);
     void settingsMenu();
     void choiceCreator();
-    std::string getPlayerChoice();
-    uint getPlayerIntChoice();
+    std::string getPlayerChoice(bool clear_history);
+    uint getPlayerIntChoice(bool clear_history);
     void statReporter(Character* character);
     void mainCharacterCreator();
     void genderPicker();
@@ -82,6 +85,7 @@ class Menu
     void typeMenuText();
     void assignTextAndType(std::string text);
     void statSelection();
+    uint slider(uint min_value, uint max_value);
 };
 
 
