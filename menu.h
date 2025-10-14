@@ -1,7 +1,7 @@
-#ifndef MENU_HEADER_H
-#define MENU_HEADER_H
+#ifndef MENU_H
+#define MENU_H
 #include <string>
-#include "character-header.h"
+#include "character.h"
 
 class Menu
 {

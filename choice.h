@@ -1,5 +1,5 @@
-#ifndef CHOICE_HEADER_H
-#define CHOICE_HEADER_H
+#ifndef CHOICE_H
+#define CHOICE_H
 #include <string>
 
 typedef unsigned int uint;

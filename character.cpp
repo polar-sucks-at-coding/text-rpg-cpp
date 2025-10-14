@@ -1,9 +1,9 @@
 #include <pthread.h>
 #include <string>
 #include <unistd.h>
-#include "character-header.h"
+#include "character.h"
 
-Character::Character(std::string type_param, std::string gender_param)
+Character::Character(std::string type_param, std::string gender_param = nullptr)
 {
     this->type = type_param;
     this->gender = gender_param;

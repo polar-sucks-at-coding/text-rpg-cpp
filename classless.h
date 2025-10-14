@@ -1,9 +1,9 @@
-#ifndef CLASSLESS_HEADER_H
-#define CLASSLESS_HEADER_H
+#ifndef CLASSLESS_H
+#define CLASSLESS_H
 #include <filesystem>
 #include <iostream>
 #include <vector>
-#include "character-header.h"
+#include "character.h"
 
 typedef unsigned int uint;
 

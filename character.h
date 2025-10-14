@@ -1,5 +1,5 @@
-#ifndef CHARACTER_HEADER_H
-#define CHARACTER_HEADER_H
+#ifndef CHARACTER_H
+#define CHARACTER_H
 #include <string>
 
 typedef unsigned int uint;

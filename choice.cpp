@@ -4,9 +4,9 @@
 #include <iostream>
 #include <unistd.h>
 #include <thread>
-#include "choice-header.h"
-#include "utility-header.h"
-#include "setting-header.h"
+#include "choice.h"
+#include "utility.h"
+#include "setting.h"
 
     bool available;
     std::string text;

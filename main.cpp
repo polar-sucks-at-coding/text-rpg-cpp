@@ -1,8 +1,8 @@
 #include <pthread.h>
 #include <string>
 #include <unistd.h>
-#include "menu-header.h"
-#include "utility-header.h"
+#include "menu.h"
+#include "utility.h"
 
 /*struct Character //backup character struct
 {

@@ -5,11 +5,11 @@
 #include <iostream>
 #include <unistd.h>
 #include <thread>
-#include "classless-header.h"
-#include "setting-header.h"
-#include "utility-header.h"
-#include "choice-header.h"
-#include "menu-header.h"
+#include "classless.h"
+#include "setting.h"
+#include "utility.h"
+#include "choice.h"
+#include "menu.h"
 
     Menu::Menu(std::string name_param)
     {

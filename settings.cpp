@@ -1,6 +1,6 @@
-#include "classless-header.h"
-#include "setting-header.h"
-#include "character-header.h"
+#include "classless.h"
+#include "setting.h"
+#include "character.h"
 
 uint Setting::default_typing_speed = 50;
 

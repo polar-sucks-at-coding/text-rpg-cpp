@@ -1,5 +1,5 @@
-#ifndef UTLITY_HEADER_H
-#define UTLITY_HEADER_H
+#ifndef UTLITY_H
+#define UTLITY_H
 
 typedef unsigned int uint;
 

@@ -1,5 +1,5 @@
-#ifndef SETTING_HEADER_H
-#define SETTING_HEADER_H
+#ifndef SETTING_H
+#define SETTING_H
 #include <vector>
 #include <string>
 
