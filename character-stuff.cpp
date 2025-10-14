@@ -1,7 +1,7 @@
 #include <pthread.h>
 #include <string>
 #include <unistd.h>
-#include "header.h"
+#include "character-header.h"
 
 Character::Character(std::string type_param, std::string gender_param)
 {

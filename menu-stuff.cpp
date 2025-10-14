@@ -5,7 +5,11 @@
 #include <iostream>
 #include <unistd.h>
 #include <thread>
-#include "header.h"
+#include "classless-header.h"
+#include "setting-header.h"
+#include "utility-header.h"
+#include "choice-header.h"
+#include "menu-header.h"
 
     Menu::Menu(std::string name_param)
     {
@@ -60,7 +64,6 @@
                 player_is_done = 1;
             }
         }
-
     }
 
     void Menu::choiceCreator()
@@ -328,28 +331,30 @@
 
     void Menu::mainMenu()
     {
-        this->assignTextAndType("Main Menu");
-        Utility::doubleSpace();
-
-
         this->amount_of_choices = 3;
-        this->choiceCreator();
 
-        std::string player_choice = getPlayerChoice();
+        bool go_back_to_main = 1;
             
-        if (player_choice == "1")
+        while (go_back_to_main == 1)
         {
-            Menu* main_character_creator = new Menu("main_character_creator");
-        }
+            this->assignTextAndType("Main Menu");
+            Utility::doubleSpace();
+            std::string player_choice = Menu::createChoicesAndGetPlayerChoice();
 
-        else if (player_choice == "3")
-        {
-            Menu* settings = new Menu("settings");
-        }
-            
-        else 
-        {
-            Utility::notImplemented();
+            if (player_choice == "1")
+            {
+                Menu* main_character_creator = new Menu("main_character_creator");
+                go_back_to_main = 0;
+            }
+
+            else if (player_choice == "3")
+            {
+                Menu* settings = new Menu("settings");
+            }
+            else 
+            {
+                Utility::notImplemented();
+            }
         }
     }
 
@@ -383,4 +388,11 @@
         std::cin >> value;
         return value;
         
+    }
+
+    std::string Menu::createChoicesAndGetPlayerChoice()
+    {
+        this->choiceCreator();
+
+        return getPlayerChoice();
     }
