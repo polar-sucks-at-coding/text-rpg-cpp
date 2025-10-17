@@ -8,11 +8,11 @@ Character::Character(std::string type_param, std::string gender_param = nullptr)
     this->type = type_param;
     this->gender = gender_param;
 
-    this->pronounAssigner();
-    this->baseStatAssigner();
+    this->assignPronouns();
+    this->assignBaseStats();
 }
 
-void Character::baseStatAssigner()
+void Character::assignBaseStats()
 {
     if (this->type == "main")
     {
@@ -20,7 +20,7 @@ void Character::baseStatAssigner()
     }
 }
 
-void Character::pronounAssigner()
+void Character::assignPronouns()
     {
         if (this->gender == "male")
         {
@@ -47,3 +47,8 @@ void Character::pronounAssigner()
             this->pronoun3 = "its";
         }
     }
+
+void Character::reportStats()
+{
+    
+}

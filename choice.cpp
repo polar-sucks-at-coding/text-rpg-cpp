@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <ostream>
 #include <pthread.h>
 #include <string>
@@ -11,11 +12,13 @@
     bool available;
     std::string text;
 
-    Choice::Choice(std::string name_of_menu_param, uint choice_number)
+    Choice::Choice(std::string name_param, bool event_or_menu, uint choice_number)
     {
-
-        if (name_of_menu_param == "main_menu")
+        
+        if (event_or_menu == 1)
         {
+            if (name_param == "main_menu")
+            {
             if (choice_number == 1)
             {
                 this->assignText("New Game");
@@ -28,10 +31,10 @@
             {
                 this->assignText("Settings");
             }
-        }
+            }
 
-        else if (name_of_menu_param == "main_character_creator")
-        {
+            else if (name_param == "main_character_creator")
+            {
             if (choice_number == 1)
             {
                 this->assignText("Gender");
@@ -44,10 +47,10 @@
             {
                 this->assignText("Finish");
             }
-        }
+            }
 
-        else if (name_of_menu_param == "gender_picker")
-        {
+            else if (name_param == "gender_picker")
+            {
             if (choice_number == 1)
             {
                 this->assignText("Male (he/him/his)");
@@ -60,10 +63,10 @@
             {
                 this->assignText("Neutral (they/them/their)");
             }
-        }
+            }
         
-        else if (name_of_menu_param == "short_stat_selection")
-        {
+            else if (name_param == "short_stat_selection")
+            {
             if (choice_number == 1)
             {
                 this->assignText("Strength");
@@ -96,9 +99,9 @@
             {
                 this->assignText("Finish");
             }
-        }
-        else if (name_of_menu_param == "stat_selection")
-        {
+            }
+            else if (name_param == "stat_selection")
+            {
             if (choice_number == 1)
             {
                 this->assignText("Strength (This determines how much damage heavy weapons like two-handed weapons or maces will deal, along with helping you use physical strength to get out of situations.)");
@@ -123,9 +126,9 @@
             {
                 this->assignText("Charisma (This determines how easily you can convince others, intimidate them, or lie to them and get away with it.)");
             }
-        }
-        else if (name_of_menu_param == "settings")
-        {
+            }
+            else if (name_param == "settings")
+            {
             if (choice_number == 1)
             {
                 this->assignText("Text appearing/typing speed (1 through 100, 50 by default)");
@@ -137,6 +140,14 @@
             else if (choice_number == Setting::amount_of_settings + 2)
             {
                 this->assignText("Finish");
+            }
+            }
+        }
+        else 
+        {
+            if (name_param == "intro")
+            {
+                
             }
         }
 
@@ -150,18 +161,6 @@
         std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
         std::cout << ") ";
         std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
-    }
-
-    void Choice::typeText()
-    {
-        for (std::size_t i = 0; i < this->text.size(); i++)
-        {
-            std::cout << this->text[i] << std::flush;
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
-        }
-        
-        Utility::makeSpace();
     }
 
     void Choice::assignText(std::string text_param)

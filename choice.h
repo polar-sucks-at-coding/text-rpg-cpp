@@ -10,7 +10,7 @@ class Choice
     std::string text;
 
     public:
-    Choice(std::string name_of_menu_param, uint choice_number);
+    Choice(std::string name_param, bool event_or_menu, uint choice_number);
     void typeText();
     void assignText(std::string text_param);
     void typeNumberOfChoice(uint choice_number);

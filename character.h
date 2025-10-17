@@ -23,8 +23,9 @@ class Character
 
     public:
     Character(std::string type_param, std::string gender_param);
-    void baseStatAssigner();
-    void pronounAssigner();
+    void assignBaseStats();
+    void assignPronouns();
+    void reportStats();
 };
 
 static Character* main_character;
