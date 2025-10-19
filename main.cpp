@@ -6,13 +6,13 @@
 
 void createMainMenu()
 {
-    Menu* main_menu = new Menu("main_menu");
+Menu* main_menu = new Menu("main_menu");
 }
 
 int main()
-    {
-        Utility::clearHistory();
-        createMainMenu();
-        
-        return 0;
-    }
+{
+    Utility::clearHistory();
+    createMainMenu();
+    
+    return 0;
+}

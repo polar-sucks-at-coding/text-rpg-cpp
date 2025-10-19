@@ -4,9 +4,9 @@
 
 class Event
 {
-    std::string name;
-    public:
-    Event(std::string name_param);
+std::string name;
+public:
+Event(std::string name_param);
 
 };
 

@@ -19,8 +19,6 @@ Setting::Setting(int default_value)
 
 void Setting::createSettingChoices()
 {
-    Utility::makeSpace();
-
     for (uint i = 1; i < amount_of_settings + 3; i++)
     {
         Choice* choice = new Choice("settings", 1, i);

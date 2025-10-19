@@ -5,18 +5,18 @@
 
 class Menu
 {
-    std::string text;
-    std::string name;
-    uint amount_of_choices;
-    public:
-    Menu(std::string name_param);
-    void choiceCreator();
-    void mainCharacterCreator();
-    void genderPicker();
-    void mainMenu();
-    void assignTextAndType(std::string text);
-    void statSelection();
-    std::string createChoicesAndGetPlayerChoice();
+std::string text;
+std::string name;
+uint amount_of_choices;
+public:
+Menu(std::string name_param);
+void choiceCreator();
+void mainCharacterCreator();
+void genderPicker();
+void mainMenu();
+void assignTextAndType(std::string text);
+void statSelection();
+std::string createChoicesAndGetPlayerChoice();
 };
 
 #endif

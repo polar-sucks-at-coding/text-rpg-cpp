@@ -8,161 +8,161 @@
 #include "utility.h"
 #include "setting.h"
 
-    bool available;
-    std::string text;
+bool available;
+std::string text;
 
-    Choice::Choice(std::string name_param, bool event_or_menu, uint choice_number)
+Choice::Choice(std::string name_param, bool event_or_menu, uint choice_number)
+{
+    
+    if (event_or_menu == 1)
     {
-        
-        if (event_or_menu == 1)
+        if (name_param == "main_menu")
         {
-            if (name_param == "main_menu")
-            {
-            if (choice_number == 1)
-            {
-                this->assignText("New Game");
-            }
-            else if (choice_number == 2)
-            {
-                this->assignText("Load Game");
-            }
-            else if (choice_number == 3)
-            {
-                this->assignText("Settings");
-            }
-            }
-
-            else if (name_param == "main_character_creator")
-            {
-            if (choice_number == 1)
-            {
-                this->assignText("Gender");
-            }
-            else if (choice_number == 2)
-            {
-                this->assignText("Stats");
-            }
-            else if (choice_number == 3)
-            {
-                this->assignText("Finish");
-            }
-            }
-
-            else if (name_param == "gender_picker")
-            {
-            if (choice_number == 1)
-            {
-                this->assignText("Male (he/him/his)");
-            } 
-            else if (choice_number == 2)
-            {
-                this->assignText("Female (she/her)");
-            }
-            else if (choice_number == 3)
-            {
-                this->assignText("Neutral (they/them/their)");
-            }
-            }
-        
-            else if (name_param == "short_stat_selection")
-            {
-            if (choice_number == 1)
-            {
-                this->assignText("Strength");
-            }
-            else if (choice_number == 2)
-            {
-                this->assignText("Dexterity");
-            }
-            else if (choice_number == 3)
-            {
-                this->assignText("Constitution");
-            }
-            else if (choice_number == 4)
-            {
-                this->assignText("Intelligence");
-            }
-            else if (choice_number == 5)
-            {
-                this->assignText("Wisdom");
-            }
-            else if (choice_number == 6)
-            {
-                this->assignText("Charisma");
-            }
-            else if (choice_number == 7)
-            {
-                this->assignText("Reset changes");
-            }
-            else if (choice_number == 8)
-            {
-                this->assignText("Finish");
-            }
-            }
-            else if (name_param == "stat_selection")
-            {
-            if (choice_number == 1)
-            {
-                this->assignText("Strength (This determines how much damage heavy weapons like two-handed weapons or maces will deal, along with helping you use physical strength to get out of situations.)");
-            }
-            else if (choice_number == 2)
-            {
-                this->assignText("Dexterity (This determines how likely you are to hit your enemy with a weapon, as well as determining how nimble you are. Will help you get out of situations by running or sneaking.)");
-            }
-            else if (choice_number == 3)
-            {
-                this->assignText("Constitution (This determines how much max HP you have, as well as letting you endure physical pain better in situations where you have to grit your teeth.)");
-            }
-            else if (choice_number == 4)
-            {
-                this->assignText("Intelligence (This determines how effective your spells are, along with making you overall more intelligent and letting you figure out puzzles or make plans faster than others.)");
-            }
-            else if (choice_number == 5)
-            {
-                this->assignText("Wisdom (This determines how much max mana you have, and also determines how much insight you have into things that aren't common knowledge.)");
-            }
-            else if (choice_number == 6)
-            {
-                this->assignText("Charisma (This determines how easily you can convince others, intimidate them, or lie to them and get away with it.)");
-            }
-            }
-            else if (name_param == "settings")
-            {
-            if (choice_number == 1)
-            {
-                this->assignText("Text appearing/typing speed (1 through 100, 50 by default)");
-            }
-            else if (choice_number == Setting::amount_of_settings + 1)
-            {
-                this->assignText("Reset settings");
-            }
-            else if (choice_number == Setting::amount_of_settings + 2)
-            {
-                this->assignText("Finish");
-            }
-            }
+        if (choice_number == 1)
+        {
+            this->assignText("New Game");
         }
-        else 
+        else if (choice_number == 2)
         {
-            if (name_param == "intro")
-            {
-                
-            }
+            this->assignText("Load Game");
+        }
+        else if (choice_number == 3)
+        {
+            this->assignText("Settings");
+        }
         }
 
-        this->typeNumberOfChoice(choice_number);
-        Utility::typeText(this->text);
-    };
+        else if (name_param == "main_character_creator")
+        {
+        if (choice_number == 1)
+        {
+            this->assignText("Gender");
+        }
+        else if (choice_number == 2)
+        {
+            this->assignText("Stats");
+        }
+        else if (choice_number == 3)
+        {
+            this->assignText("Finish");
+        }
+        }
 
-    void Choice::typeNumberOfChoice(uint choice_number)
+        else if (name_param == "gender_picker")
+        {
+        if (choice_number == 1)
+        {
+            this->assignText("Male (he/him/his)");
+        } 
+        else if (choice_number == 2)
+        {
+            this->assignText("Female (she/her)");
+        }
+        else if (choice_number == 3)
+        {
+            this->assignText("Neutral (they/them/their)");
+        }
+        }
+    
+        else if (name_param == "short_stat_selection")
+        {
+        if (choice_number == 1)
+        {
+            this->assignText("Strength");
+        }
+        else if (choice_number == 2)
+        {
+            this->assignText("Dexterity");
+        }
+        else if (choice_number == 3)
+        {
+            this->assignText("Constitution");
+        }
+        else if (choice_number == 4)
+        {
+            this->assignText("Intelligence");
+        }
+        else if (choice_number == 5)
+        {
+            this->assignText("Wisdom");
+        }
+        else if (choice_number == 6)
+        {
+            this->assignText("Charisma");
+        }
+        else if (choice_number == 7)
+        {
+            this->assignText("Reset changes");
+        }
+        else if (choice_number == 8)
+        {
+            this->assignText("Finish");
+        }
+        }
+        else if (name_param == "stat_selection")
+        {
+        if (choice_number == 1)
+        {
+            this->assignText("Strength (This determines how much damage heavy weapons like two-handed weapons or maces will deal, along with helping you use physical strength to get out of situations.)");
+        }
+        else if (choice_number == 2)
+        {
+            this->assignText("Dexterity (This determines how likely you are to hit your enemy with a weapon, as well as determining how nimble you are. Will help you get out of situations by running or sneaking.)");
+        }
+        else if (choice_number == 3)
+        {
+            this->assignText("Constitution (This determines how much max HP you have, as well as letting you endure physical pain better in situations where you have to grit your teeth.)");
+        }
+        else if (choice_number == 4)
+        {
+            this->assignText("Intelligence (This determines how effective your spells are, along with making you overall more intelligent and letting you figure out puzzles or make plans faster than others.)");
+        }
+        else if (choice_number == 5)
+        {
+            this->assignText("Wisdom (This determines how much max mana you have, and also determines how much insight you have into things that aren't common knowledge.)");
+        }
+        else if (choice_number == 6)
+        {
+            this->assignText("Charisma (This determines how easily you can convince others, intimidate them, or lie to them and get away with it.)");
+        }
+        }
+        else if (name_param == "settings")
+        {
+        if (choice_number == 1)
+        {
+            this->assignText("Text appearing/typing speed (1 through 100, 50 by default)");
+        }
+        else if (choice_number == Setting::amount_of_settings + 1)
+        {
+            this->assignText("Reset settings");
+        }
+        else if (choice_number == Setting::amount_of_settings + 2)
+        {
+            this->assignText("Finish");
+        }
+        }
+    }
+    else 
     {
-        std::cout << choice_number;
-        std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
-        std::cout << ") ";
-        std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
+        if (name_param == "intro")
+        {
+            
+        }
     }
 
-    void Choice::assignText(std::string text_param)
-    {
-        this->text = text_param;
-    }
+    this->typeNumberOfChoice(choice_number);
+    Utility::typeText(this->text);
+};
+
+void Choice::typeNumberOfChoice(uint choice_number)
+{
+    std::cout << choice_number;
+    std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
+    std::cout << ") ";
+    std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
+}
+
+void Choice::assignText(std::string text_param)
+{
+    this->text = text_param;
+}
