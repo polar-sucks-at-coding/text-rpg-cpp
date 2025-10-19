@@ -9,14 +9,16 @@ class Setting
 {
     public:
 
-    static uint amount_of_settings;
-    static uint default_typing_speed;
     static Setting* typing_speed;
+    static uint amount_of_settings;
+    int default_value;
     uint value;
-    std::string name;
-    Setting(std::string name);
-    static void resetSettings();
-     static std::vector<Setting*> settings;
+    Setting(int default_value);
+    void resetSettings();
+    static void createSettingChoices();
+    static void createSettings();
+    void changeSettings();
+    static std::vector<Setting*> settings;
 };
 
 

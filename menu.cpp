@@ -33,38 +33,9 @@
         {
             this->statSelection();
         }
-        else if (name == "settings")
-        {
-            this->settingsMenu();
-        }
         else 
         {
             assignTextAndType("Menu name doesn't exist.");
-        }
-    }
-
-    void Menu::settingsMenu()
-    {
-        assignTextAndType("Settings");
-        Utility::doubleSpace();
-        this->amount_of_choices = Setting::amount_of_settings + 2;
-        bool player_is_done = 0;
-        while (player_is_done == 0)
-        {
-            this->choiceCreator();
-            int player_choice = Utility::getPlayerIntChoice(0);
-            if (player_choice == 1)
-            {
-                Setting::typing_speed->value =  101 - Utility::slider(1, 100);
-            }
-            else if (player_choice == amount_of_choices - 1)
-            {
-                Setting::resetSettings();
-            }
-            else if (player_choice == amount_of_choices)
-            {
-                player_is_done = 1;
-            }
         }
     }
 
@@ -267,7 +238,7 @@
 
         bool go_back_to_main = 1;
             
-        while (go_back_to_main == 1)
+        while (1)
         {
             this->assignTextAndType("Main Menu");
             Utility::doubleSpace();
@@ -276,18 +247,18 @@
             if (player_choice == "1")
             {
                 Menu* main_character_creator = new Menu("main_character_creator");
-                go_back_to_main = 0;
+                break;
             }
 
             else if (player_choice == "3")
             {
-                Menu* settings = new Menu("settings");
+                changeSettings();
             }
             else 
             {
                 Utility::notImplemented();
             }
-            Event* event = new Event("intro");
+            //Event* event = new Event("intro");
         }
     }
 
@@ -298,7 +269,7 @@
         {
             std::cout << this->text[i] << std::flush;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
+            std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
         }
     }
 

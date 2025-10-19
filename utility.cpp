@@ -38,30 +38,47 @@ std::string Utility::getPlayerChoice(bool clear_history)
     }
 
 uint Utility::slider(uint min_value, uint max_value)
+{
+    while (1)
     {
-        typeText("Assign a number ");
-        typeText(std::to_string(min_value));
-        typeText(" through ");
-        typeText(std::to_string(max_value));
-        typeText(" this value.");
+        typeText("Assign a number ", 0);
+        typeText(std::to_string(min_value), 0);
+        typeText(" through ", 0);
+        typeText(std::to_string(max_value), 0);
+        typeText(" for this value.", 0);
         Utility::makeSpace();
-        
+    
         uint value;
 
         std::cin >> value;
-        return value;
-        
-    }
 
-void Utility::typeText(std::string text)
+        if (min_value <= value && value <= max_value)
+        {
+            return value;
+            break;
+        }
+
+        else  
+        {
+            Utility::typeText("The value you entered isn't within the available range.");
+        }
+    }
+    
+}
+
+void Utility::typeText(std::string text, bool make_space)
     {
         for (std::size_t i = 0; i < text.size(); i++)
         {
             std::cout << text[i] << std::flush;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
+            std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
         }
-        Utility::makeSpace();
+        if (make_space == 1)
+        {
+            Utility::makeSpace();
+        }
+        
     }
 
 void Utility::makeSpace()
@@ -82,7 +99,7 @@ void Utility::notImplemented()
         {
             std::cout << message[i] << std::flush;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(getTypingSpeed()));
+            std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
         }
 }
 
@@ -94,14 +111,4 @@ void Utility::clearHistory()
     #elif defined(_WIN32)
     system("cls");
     #endif
-}
-
-void Utility::changeTypingSpeed(uint speed)
-{
-    Setting::typing_speed->value = speed;
-}
-
-uint Utility::getTypingSpeed()
-{
-    return Setting::typing_speed->value;
 }

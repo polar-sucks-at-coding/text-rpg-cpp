@@ -11,10 +11,8 @@ class Utility
     static void doubleSpace();
     static void notImplemented();
     static void clearHistory();
-    static void changeTypingSpeed(uint speed);
-    static uint getTypingSpeed();
     static uint slider(uint min_value, uint max_value);
-    static void typeText(std::string text);
+    static void typeText(std::string text, bool make_space = 1);
     static std::string getPlayerChoice(bool clear_history = 1);
     static uint getPlayerIntChoice(bool clear_history = 1);
 };

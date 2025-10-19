@@ -9,6 +9,8 @@ typedef unsigned int uint;
 
 static std::string most_recent_input;
 
+void changeSettings();
+void resetSettings();
 
 
 

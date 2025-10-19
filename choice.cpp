@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <ostream>
 #include <pthread.h>
 #include <string>
@@ -152,15 +151,15 @@
         }
 
         this->typeNumberOfChoice(choice_number);
-        this->typeText();
+        Utility::typeText(this->text);
     };
 
     void Choice::typeNumberOfChoice(uint choice_number)
     {
         std::cout << choice_number;
-        std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
+        std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
         std::cout << ") ";
-        std::this_thread::sleep_for(std::chrono::milliseconds(Utility::getTypingSpeed()));
+        std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
     }
 
     void Choice::assignText(std::string text_param)

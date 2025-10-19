@@ -4,7 +4,7 @@
 #include "menu.h"
 #include "utility.h"
 
-void mainMenuCreator()
+void createMainMenu()
 {
     Menu* main_menu = new Menu("main_menu");
 }
@@ -12,7 +12,7 @@ void mainMenuCreator()
 int main()
     {
         Utility::clearHistory();
-        mainMenuCreator();
+        createMainMenu();
         
         return 0;
     }
