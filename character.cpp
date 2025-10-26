@@ -3,38 +3,35 @@
 #include <unistd.h>
 #include "character.h"
 
-Character::Character(std::string type_param, std::string gender_param = nullptr)
+Character::Character(Type type) : Character(type, Inanimate)
 {
-this->type = type_param;
-this->gender = gender_param;
-
-this->assignPronouns();
-this->assignBaseStats();
+    this->type = type;
+    this->assignPronouns();
+    //this->assignBaseStats();
 }
 
-void Character::assignBaseStats()
+Character::Character(Type type, Gender gender)
 {
-if (this->type == "main")
-{
-    this->STR = this->DEX = this->CON = this->INT = this->WIS = this->CHA = 5;
-}
+    this->type = type;
+    this->gender = gender;
+    this->assignPronouns();
 }
 
 void Character::assignPronouns()
 {
-    if (this->gender == "male")
+    if (this->gender == Male)
     {
         this->pronoun1 = "he";
         this->pronoun2 = "him";
         this->pronoun3 = "his";
     }
-    else if (this->gender == "female")
+    else if (this->gender == Female)
     {
         this->pronoun1 = "she";
         this->pronoun2 = "her";
         this->pronoun3 = pronoun2;
     }
-    else if (this->gender == "neutral")
+    else if (this->gender == Neutral)
     {
         this->pronoun1 = "they";
         this->pronoun2 = "them";
@@ -48,7 +45,13 @@ void Character::assignPronouns()
     }
 }
 
-void Character::reportStats()
+/*void Character::reportStats()
 {
 
 }
+
+void Character::assignBaseStats()
+{
+
+}
+*/

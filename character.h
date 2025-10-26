@@ -4,30 +4,44 @@
 
 typedef unsigned int uint;
 
+static uint amount_of_stats = 6;
+
+enum Gender
+{
+    Male,
+    Female,
+    Neutral,
+    Inanimate
+};
+
+enum Type
+{
+    Player,
+    Enemy,
+    NPC //etc
+};
+
 class Character
 {
-public: std::string type;
+public: 
+std::string type;
+Gender gender;
 uint HP;
-uint mana;
-uint STR;
-uint DEX;
-uint CON;
-uint INT;
-uint WIS;
-uint CHA;
-std::string gender;
+uint maxHP;
 std::string name;
 std::string pronoun1;
 std::string pronoun2;
 std::string pronoun3;
 
 public:
-Character(std::string type_param, std::string gender_param);
-void assignBaseStats();
+Character(Type type);
+Character(Type type, Gender gender);
 void assignPronouns();
+/*
+void assignBaseStats();
 void reportStats();
-};
+*/
 
-static Character* main_character;
+};
 
 #endif

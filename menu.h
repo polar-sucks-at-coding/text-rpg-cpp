@@ -1,22 +1,31 @@
 #ifndef MENU_H
 #define MENU_H
 #include <string>
-#include "character.h"
+
+typedef unsigned int uint;
+
+enum MenuType
+{
+    Main,
+    CharacterCreator,
+    GenderPicker,
+    Settings
+
+};
+
 
 class Menu
 {
-std::string text;
-std::string name;
-uint amount_of_choices;
+uint amount_of_options;
+std::string title = "";
+std::string subtext = "";
+void typeMenuSubtext();
+void typeMenuTitle();
+void createOptions(MenuType type);
+void assignVariables(int amount_of_options = 0, std::string title = "", std::string subtext = "");
 public:
-Menu(std::string name_param);
-void choiceCreator();
-void mainCharacterCreator();
-void genderPicker();
-void mainMenu();
-void assignTextAndType(std::string text);
-void statSelection();
-std::string createChoicesAndGetPlayerChoice();
+Menu(MenuType type);
+uint exit_value;
 };
 
 #endif

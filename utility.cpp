@@ -7,34 +7,32 @@
 #include "utility.h"
 #include "setting.h"
 
-uint Utility::getPlayerIntChoice(bool clear_history)
+void Utility::invalidInput()
 {
-uint player_decision;
-Utility::makeSpace();
-std::cin >> player_decision;
-Utility::makeSpace();
-
-if (clear_history == 1)
-{
-Utility::clearHistory();
+    Utility::typeText("Are you sure you entered right?");
 }
 
-return player_decision;
-}
-
-
-std::string Utility::getPlayerChoice(bool clear_history)
+uint Utility::getPlayerChoice(int amount_of_options, bool clear_history)
 {
-std::string player_decision;
-Utility::makeSpace();
-std::cin >> player_decision;
-Utility::makeSpace();
-
-if (clear_history == 1)
-{
-Utility::clearHistory();
-}
-return player_decision;
+    int skibidi;
+    std::cin >> skibidi;
+    if (clear_history == 1)
+    {
+        Utility::clearHistory();
+    }
+    while (1)
+    {
+        if (skibidi > 0 && skibidi <= amount_of_options)
+        {
+            return skibidi;
+        }
+        else
+        {
+            Utility::typeText("Not a valid option.");
+        }
+    }
+    
+    
 }
 
 uint Utility::slider(uint min_value, uint max_value)
@@ -93,14 +91,7 @@ std::cout << "\n\n";
 
 void Utility::notImplemented()
 {
-std::string message = "This isn't implemented yet.";
-
-for (std::size_t i = 0; i < message.size(); i++)
-{
-    std::cout << message[i] << std::flush;
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(Setting::typing_speed->value));
-}
+    typeText("This isn't implemented yet.");
 }
 
 void Utility::clearHistory()
