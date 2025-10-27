@@ -15,14 +15,17 @@ Menu::Menu(MenuType type)
     (Options)
     */
 
+
+    //Assigning the menu variables based on its type.
     switch (type)
     {
         case Main: assignVariables(3, "Main Menu"); break;
         case CharacterCreator: assignVariables(1 +1, "Character Creator", "Pick what you want to decide about your character."); break;
-        case GenderPicker: assignVariables(3 +1, "Gender Picker", "Pretty self-explanatory"); break;
+        case GenderPicker: assignVariables(3 +1, "Gender Picker"); break;
     }
-    /*If amount_of_options has a +1 or +2, that is for the reset and/or finish options.*/
+    //If amount_of_options has a +1 or +2, that is for the reset and/or finish options.
 
+    //Typing the menu's title and subtext if it has them.
     if (this->title != "")
     {
         this->typeMenuTitle();
@@ -31,10 +34,17 @@ Menu::Menu(MenuType type)
     {
         this->typeMenuSubtext();
     }
+    //Creating the options for this menu that the player will choose from.
     this->createOptions(type);
 
-    this->exit_value = Utility::getPlayerChoice(this->amount_of_options);
+    //Getting player input and assigning "player_input" that value so that we can access it from outside the Menu class.
+    this->player_input = Utility::getPlayerChoice(this->amount_of_options);
     
+}
+
+int Menu::returnPlayerInput()
+{
+    return this->player_input;
 }
 
 void Menu::assignVariables(int amount_of_options, std::string title, std::string subtext)
@@ -45,6 +55,7 @@ void Menu::assignVariables(int amount_of_options, std::string title, std::string
 
 }
 
+//Creates options depending on the "amount_of_options" variable and types them out. Deletes them after.
 void Menu::createOptions(MenuType type)
 {
     for (int i = 1; i < this->amount_of_options + 1; i++)

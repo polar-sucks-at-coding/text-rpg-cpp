@@ -39,9 +39,12 @@ Character(Type type, Gender gender);
 void assignPronouns();
 /*
 void assignBaseStats();
-void reportStats();
 */
+void reportStats();
+
 
 };
+
+static Character* player;
 
 #endif

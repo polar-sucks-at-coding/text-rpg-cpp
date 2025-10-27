@@ -4,51 +4,97 @@
 #include "menu.h"
 #include "utility.h"
 
-Character* main_character;
-
-uint getMenuOutput(Menu* menu)
-{
-    return menu->exit_value;
-}
-
 void createNewGame()
 {
-    Gender player_gender;
+    //Creating temporary variables for assigning stuff.
+    Gender player_gender = Neutral;
     int gender_picker_output;
-    Menu* character_creator = new Menu(CharacterCreator);
-    switch (getMenuOutput(character_creator))
+
+    //Creating the character creator menu.
+    
+    //Setting up a loop for the character_creator.
+    bool toilet = 1;
+    while (toilet)
     {
-        default: Utility::invalidInput();
-        case 1: {Menu* gender_picker = new Menu(GenderPicker); gender_picker_output = getMenuOutput(gender_picker); delete gender_picker;} break;
-        case 2: 
-        switch (gender_picker_output)
+        //Creating character_creator
+        Menu* character_creator = new Menu(CharacterCreator);
+
+        //Receiving the user input
+        switch (character_creator->returnPlayerInput())
         {
-            case 1: {player_gender = Male;} break;
-            case 2: {player_gender = Female;} break;
-            case 3: {player_gender = Neutral;} break;
+            case 1:
+            {
+                //Setting up another loop, but this time for the gender picker.
+                bool skibidi = 1;
+                while (skibidi)
+                {
+                    //Telling the player what the current gender is. "Neutral" by default.
+                    Utility::typeText("Current gender: ", 0);
+                    switch(player_gender)
+                        {
+                            case Male: Utility::typeText("Male"); break;
+                            case Female: Utility::typeText("Female"); break;
+                            case Neutral: Utility::typeText("Neutral"); break;
+                            case Inanimate: Utility::typeText("Inanimate"); break;
+                        }
+                    
+                    //Creating the gender picker menu.
+                    Menu* gender_picker = new Menu(GenderPicker);
+
+                    //Assigning the gender based on player input, and quitting the menu and deleting it if the appropriate input is given.
+                    switch (gender_picker->returnPlayerInput())
+                    {
+                        case 1: player_gender = Male; break;
+                        case 2: player_gender = Female; break;
+                        case 3: player_gender = Neutral; break;
+                        case 4: skibidi = 0; delete gender_picker; break;
+                    }
+                }
+            }
+            //Deleting character creator because we're going to make a new one.
+            delete character_creator;
+            break;
+            
+            //The "Finish" case. Exits out of the character creator and deletes it.
+            case 2: toilet = 0; delete character_creator; break;
+
+            //Just in case somehow the character creator gets created wrong.
+            default: Utility::typeText("amount_of_options not assigned correctly to character creator."); break;
         }
-        break;
     }
-    main_character = new Character(Player, player_gender);
-    delete character_creator;
+    
+    //Player pointer is created in character.h as static, this actually creates the Character object for it.
+    player = new Character(Player, player_gender);
+    
 }
 
 int main()
 {
+    //Clearing terminal history
     Utility::clearHistory();
+
+    //Creating a variable for looping the main menu
     bool fuck = 1;
     while (fuck)
     {
         Menu* main_menu = new Menu(Main);
-        switch (main_menu->exit_value)
+        switch (main_menu->returnPlayerInput())
         {
-            case 1: delete main_menu; createNewGame(); fuck = 0; break;
+            //Calls function to create the menus used in starting a new game.
+            case 1: createNewGame(); fuck = 0; break;
             
+            //Loading the game or settings not implemented just yet, so giving output to clarify that.
             default: Utility::notImplemented(); break;
         }
+        //Deleting main_menu once we're done with it.
+        delete main_menu;
     }    
 
-    //This is where code to start the game will go when said code actually exists.
+    //Checking if the gender assignment worked as intended.
+    player->reportStats();
+
+
+    //This is where code to start the game's prologue will go when said code actually exists.
 
     
     return 0;

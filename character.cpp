@@ -2,6 +2,7 @@
 #include <string>
 #include <unistd.h>
 #include "character.h"
+#include "utility.h"
 
 Character::Character(Type type) : Character(type, Inanimate)
 {
@@ -45,11 +46,19 @@ void Character::assignPronouns()
     }
 }
 
-/*void Character::reportStats()
+void Character::reportStats()
 {
-
+    Utility::typeText("Gender: ", 0);
+    switch (this->gender)
+    {
+        case Male: Utility::typeText("Male"); break;
+        case Female: Utility::typeText("Female"); break;
+        case Neutral: Utility::typeText("Neutral"); break; 
+        case Inanimate: Utility::typeText("Inanimate"); break;
+    }
 }
 
+/*
 void Character::assignBaseStats()
 {
 

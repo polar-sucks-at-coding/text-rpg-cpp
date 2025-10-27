@@ -25,7 +25,8 @@ void createOptions(MenuType type);
 void assignVariables(int amount_of_options = 0, std::string title = "", std::string subtext = "");
 public:
 Menu(MenuType type);
-uint exit_value;
+uint player_input;
+int returnPlayerInput();
 };
 
 #endif
