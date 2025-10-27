@@ -10,15 +10,11 @@
 #include "setting.h"
 #include <typeinfo>
 
-//Tool to check if a string is only digits. Used in "getPlayerChoice()" to not return the input unless it's a digit.
 bool Utility::isDigits(std::string str)
 {
     for (char ch : str)
     {
-        if (!std::isdigit(ch))
-        {
-            return false;
-        }
+        if (!std::isdigit(ch)) return false;
     }
     return true;
 }
@@ -32,32 +28,16 @@ void Utility::reportInvalidOption()
 uint Utility::getPlayerChoice(int amount_of_options, bool clear_history)
 {
     std::string skibidi;
-    if (clear_history == 1)
-    {
-        Utility::clearHistory();
-    }
+    if (clear_history == 1) Utility::clearHistory();
     while (1)
     {
-        //Getting input.
         std::cin >> skibidi;
 
-        //Checking if the input is only digits.
-        if (Utility::isDigits(skibidi))
-        {
-            //Checking if the input is more than 0 but not more than the amount of options displayed.
-            if (stoi(skibidi) > 0 && stoi(skibidi) <= amount_of_options)
-            {
-                return stoi(skibidi);
-            }
-            else 
-            {
-                Utility::reportInvalidOption();
-            }
-        }
-        else
-        {
-            Utility::reportInvalidOption();
-        }
+        if (!Utility::isDigits(skibidi)) {Utility::reportInvalidOption(); continue;}
+
+        if (stoi(skibidi) > 0 && stoi(skibidi) <= amount_of_options) return stoi(skibidi);
+
+        Utility::reportInvalidOption();
     }
     
 }
