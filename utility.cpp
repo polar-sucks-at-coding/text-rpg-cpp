@@ -45,32 +45,24 @@ uint Utility::getPlayerChoice(int amount_of_options, bool clear_history)
 //Allows to assign a value to a variable with a minimum and maximum.
 uint Utility::slider(uint min_value, uint max_value)
 {
-while (1)
-{
-typeText("Assign a number ", 0);
-typeText(std::to_string(min_value), 0);
-typeText(" through ", 0);
-typeText(std::to_string(max_value), 0);
-typeText(" for this value.", 0);
-Utility::makeSpace();
+    while (1)
+    {
+        typeText("Assign a number ", 0);
+        typeText(std::to_string(min_value), 0);
+        typeText(" through ", 0);
+        typeText(std::to_string(max_value), 0);
+        typeText(" for this value.", 0);
+        Utility::makeSpace();
 
-uint value;
+        uint value;
 
-std::cin >> value;
+        std::cin >> value;
 
-//Checking if the value is actually within the bounds.
-if (min_value <= value && value <= max_value)
-{
-    return value;
-    break;
-}
+        //Checking if the value is actually within the bounds.
+        if (min_value <= value && value <= max_value) return value;
 
-else  
-{
-    Utility::typeText("The value you entered isn't within the available range.");
-}
-}
-
+        else Utility::typeText("The value you entered isn't within the available range.");
+    }
 }
 
 //Types out all characters in a string smoothly.

@@ -20,29 +20,32 @@ Character::Character(Type type, Gender gender)
 
 void Character::assignPronouns()
 {
-    if (this->gender == Male)
+    switch(gender)
     {
+        case Male:
         this->pronoun1 = "he";
         this->pronoun2 = "him";
         this->pronoun3 = "his";
-    }
-    else if (this->gender == Female)
-    {
+        break;
+
+        case Female:
         this->pronoun1 = "she";
         this->pronoun2 = "her";
         this->pronoun3 = pronoun2;
-    }
-    else if (this->gender == Neutral)
-    {
+        break;
+        
+        case Neutral:
         this->pronoun1 = "they";
         this->pronoun2 = "them";
         this->pronoun3 = "their";
-    }
-    else 
-    {
+        break;
+
+        case Inanimate:
         this->pronoun1 = "it";
         this->pronoun2 = pronoun1;
         this->pronoun3 = "its";
+        break;
+
     }
 }
 
