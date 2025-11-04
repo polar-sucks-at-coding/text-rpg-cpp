@@ -1,6 +1,6 @@
 #include "setting.h"
 
-const int default_typing_speed = 1;
+const int default_typing_speed = 50;
 
 void Setting::resetSettings()
 {
