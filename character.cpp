@@ -4,18 +4,14 @@
 #include "character.h"
 #include "utility.h"
 
-Character::Character(Type type) : Character(type, Inanimate)
+Character::Character()
 {
-    this->type = type;
-    this->assignPronouns();
-    //this->assignBaseStats();
+    this->HP = this->maxHP;
 }
 
-Character::Character(Type type, Gender gender)
-{
-    this->type = type;
-    this->gender = gender;
-    this->assignPronouns();
+void Character::assignGender(Gender gender_param)
+{   
+    this->gender = gender_param;
 }
 
 void Character::assignPronouns()
@@ -49,6 +45,20 @@ void Character::assignPronouns()
     }
 }
 
+void Character::reportName()
+{
+    Utility::typeText(this->name, 0);
+}
+
+void Character::reportPronouns()
+{
+    Utility::typeText(this->pronoun1, 0);
+    Utility::typeText("/", 0);
+    Utility::typeText(this->pronoun2, 0);
+    Utility::typeText("/", 0);
+    Utility::typeText(this->pronoun3, 1);
+}
+
 void Character::reportStats()
 {
     Utility::typeText("Gender: ", 0);
@@ -59,6 +69,13 @@ void Character::reportStats()
         case Neutral: Utility::typeText("Neutral"); break; 
         case Inanimate: Utility::typeText("Inanimate"); break;
     }
+
+    Utility::typeText("Name: ", 0);
+    this->reportName();
+    std::cout << "\n";
+
+    Utility::typeText("Pronouns: ", 0);
+    this->reportPronouns();
 }
 
 /*

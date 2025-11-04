@@ -15,14 +15,14 @@ Menu::Menu(MenuType type)
     switch (this->type)
     {
         case Main: assignVariables(3, "Main Menu"); break;
-        case CharacterCreator: assignVariables(1 +1, "Character Creator", "Pick what you want to decide about your character."); break;
+        case CharacterCreator: assignVariables(2 +1, "Character Creator", "Pick what you want to decide about your character."); break;
         case GenderPicker: assignVariables(4 +1, "Gender Picker"); break;
         case Settings: assignVariables(Setting::amount_of_settings + 2, "Settings"); break;
     }
     //If amount_of_options has a +1 or +2, that is for the reset and/or finish options.
 }
 
-void Menu::doEverything()
+void Menu::typeTitleAndSubAndCreateOptions()
 {
     this->typeTitleAndSub();
     this->createOptions();

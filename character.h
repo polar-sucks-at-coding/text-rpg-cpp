@@ -14,17 +14,15 @@ enum Gender
     Inanimate
 };
 
-enum Type
+enum EnemyType
 {
-    Player,
-    Enemy,
-    NPC //etc
+    ShitPisser
 };
+
 
 class Character
 {
 public: 
-std::string type;
 Gender gender;
 uint HP;
 uint maxHP;
@@ -34,15 +32,26 @@ std::string pronoun2;
 std::string pronoun3;
 
 public:
-Character(Type type);
-Character(Type type, Gender gender);
+Character();
+void assignGender(Gender gender_param);
 void assignPronouns();
 /*
 void assignBaseStats();
 */
 void reportStats();
+void reportPronouns();
+void reportName();
+};
 
 
+class Enemy : Character
+{
+    
+};
+
+class NPC : Character
+{
+    
 };
 
 static Character* player;

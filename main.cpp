@@ -1,56 +1,72 @@
+#include <cstddef>
 #include <pthread.h>
 #include <unistd.h>
 #include "character.h"
 #include "menu.h"
 #include "setting.h"
 #include "utility.h"
+#include <iostream>
 
 void createNewGame()
 {
-    Gender player_gender = Neutral;
+    Gender gender_input = Neutral;
     int gender_picker_output;
+    std::string name_input = "";
     
     bool toilet = 1;
     Menu* character_creator = new Menu(CharacterCreator);
     while (toilet)
     {
-        character_creator->doEverything();
+        character_creator->typeTitleAndSubAndCreateOptions();
 
         switch (character_creator->returnPlayerInput())
         {
             case 1:
-            {
-                bool skibidi = 1;
-
-                Menu* gender_picker = new Menu(GenderPicker);
-
-                while (skibidi)
                 {
-                    Utility::typeText("Current gender: ", 0);
-                    switch(player_gender)
-                    {
-                        case Male: Utility::typeText("Male"); break;
-                        case Female: Utility::typeText("Female"); break;
-                        case Neutral: Utility::typeText("Neutral"); break;
-                        case Inanimate: Utility::typeText("Inanimate"); break;
-                    }
-                    
-                    gender_picker->doEverything();
+                    bool skibidi = 1;
 
-                    switch (gender_picker->returnPlayerInput())
+                    Menu* gender_picker = new Menu(GenderPicker);
+
+                    while (skibidi)
                     {
-                        case 1: player_gender = Male; break;
-                        case 2: player_gender = Female; break;
-                        case 3: player_gender = Neutral; break;
-                        case 4: player_gender = Inanimate; break;
-                        case 5: skibidi = 0; break;
+                        Utility::typeText("Current gender: ", 0);
+                        switch(gender_input)
+                        {
+                            case Male: Utility::typeText("Male"); break;
+                            case Female: Utility::typeText("Female"); break;
+                            case Neutral: Utility::typeText("Neutral"); break;
+                            case Inanimate: Utility::typeText("Inanimate"); break;
+                        }
+                        
+                        gender_picker->typeTitleAndSubAndCreateOptions();
+
+                        switch (gender_picker->returnPlayerInput())
+                        {
+                            case 1: gender_input = Male; break;
+                            case 2: gender_input = Female; break;
+                            case 3: gender_input = Neutral; break;
+                            case 4: gender_input = Inanimate; break;
+                            case 5: skibidi = 0; break;
+                        }
                     }
+                    delete gender_picker;
                 }
-                delete gender_picker;
-            }
             break;
     
-            case 2: toilet = 0; break;
+            case 2: 
+                Utility::typeText("What would you like your name to be?");
+                std::cin >> name_input;
+            break;
+
+            case 3: 
+                if (name_input == "")
+                {
+                    Utility::typeText("You must pick a name.");
+                }
+
+                else toilet = 0; 
+                
+            break;
 
             default: Utility::typeText("amount_of_options not assigned correctly to character creator."); break;
         }
@@ -58,7 +74,12 @@ void createNewGame()
     delete character_creator;
     
     //Player pointer is created in character.h.
-    player = new Character(Player, player_gender);
+    player = new Character();
+    player->gender = gender_input;
+    player->assignPronouns();
+    player->name = name_input;
+
+    Utility::clearHistory();
     
 }
 
@@ -68,7 +89,7 @@ void createSettings()
     Menu* settings = new Menu(Settings);
     while (fuck)
     {
-        settings->doEverything();
+        settings->typeTitleAndSubAndCreateOptions();
 
         switch (settings->returnPlayerInput())
         {
@@ -89,12 +110,13 @@ void createSettings()
 int main()
 {
     Utility::clearHistory();
+    Setting::resetSettings();
 
     bool fuck = 1;
     Menu* main_menu = new Menu(Main);
     while (fuck)
     {
-        main_menu->doEverything();
+        main_menu->typeTitleAndSubAndCreateOptions();
 
         switch (main_menu->returnPlayerInput())
         {
@@ -107,8 +129,10 @@ int main()
     }    
     delete main_menu;
 
+
     player->reportStats();
-    Utility::typeText(player->pronoun1);
+
+
 
 
     //This is where code to start the game's prologue will go when said code actually exists.

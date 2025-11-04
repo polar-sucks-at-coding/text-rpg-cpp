@@ -12,6 +12,7 @@ Option::Option(MenuType menu_type, int option_number, int max_option_amount)
     switch (menu_type) 
     {
         case Settings:
+        {
             switch (option_number)
             {
                 case 1: this->assignText("Typing speed"); break;
@@ -19,9 +20,11 @@ Option::Option(MenuType menu_type, int option_number, int max_option_amount)
                 case Setting::amount_of_settings + 2: this->assignText("Finish"); break;
                 //+1 and +2 are for the reset and finish options
             }
-            break;
+        }    
+        break;
 
         case GenderPicker:
+        {
             switch (option_number) 
             {
                 case 1: assignText("Male (he/him/his)"); break;
@@ -30,22 +33,30 @@ Option::Option(MenuType menu_type, int option_number, int max_option_amount)
                 case 4: assignText("Inanimate (it/it/its)"); break;
                 case 5: assignText("Finish"); break;
             }
+        }  
         break;
+
         case CharacterCreator:
+        {
             switch (option_number)
             {
                 case 1: assignText("Gender"); break;
-                case 2: assignText("Start the game"); break;
+                case 2: assignText("Name"); break;
+                case 3: assignText("Start the game"); break;
             }
+        } 
         break;
+
         case Main:
-             switch (option_number)
-             {
+        {
+            switch (option_number)
+            {
                 case 1: assignText("New Game"); break;
                 case 2: assignText("Load Game"); break;
                 case 3: assignText("Settings"); break;
                 default: assignText("Invalid Option"); break;
-             }
+            }
+        }
         break;
     }
 };

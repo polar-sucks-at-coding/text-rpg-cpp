@@ -9,7 +9,7 @@ enum MenuType
     Main,
     CharacterCreator,
     GenderPicker,
-    Settings
+    Settings,
 
 };
 
@@ -25,7 +25,7 @@ class Menu
     void createOptions();
     void assignVariables(int amount_of_options = 0, std::string title = "", std::string subtext = "");
     public:
-    void doEverything();
+    void typeTitleAndSubAndCreateOptions();
     void typeTitleAndSub();
     Menu(MenuType type);
     uint player_input;
