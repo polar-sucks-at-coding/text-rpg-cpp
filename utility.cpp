@@ -25,7 +25,7 @@ void Utility::reportInvalidOption()
 }
 
 
-uint Utility::getPlayerChoice(int amount_of_options, bool clear_history)
+int Utility::getPlayerChoice(int amount_of_options, bool clear_history)
 {
     std::string skibidi;
     if (clear_history == 1) Utility::clearHistory();

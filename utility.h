@@ -13,7 +13,7 @@ void notImplemented();
 void clearHistory();
 uint slider(uint min_value, uint max_value);
 void typeText(std::string text, bool make_space = 1, int speed = Setting::typing_speed);
-uint getPlayerChoice(int amount_of_options, bool clear_history = 0);
+int getPlayerChoice(int amount_of_options, bool clear_history = 0);
 void reportInvalidOption();
 bool isDigits(std::string str);
 };

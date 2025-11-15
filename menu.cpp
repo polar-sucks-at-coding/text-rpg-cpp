@@ -54,7 +54,7 @@ void Menu::createOptions()
 {
     for (int i = 1; i < this->amount_of_options + 1; i++)
     {
-        Option* option = new Option(this->type, i, this->amount_of_options);
+        Menu_Option* option = new Menu_Option(this->type, i, this->amount_of_options);
         option->typeOption(i);
         delete option;
     }  

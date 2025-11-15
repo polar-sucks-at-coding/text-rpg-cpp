@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <pthread.h>
 #include <unistd.h>
 #include "character.h"
@@ -6,6 +5,7 @@
 #include "setting.h"
 #include "utility.h"
 #include <iostream>
+#include "dialog.h"
 
 void createNewGame()
 {
@@ -112,6 +112,7 @@ int main()
     Utility::clearHistory();
     Setting::resetSettings();
 
+    /*
     bool fuck = 1;
     Menu* main_menu = new Menu(Main);
     while (fuck)
@@ -131,12 +132,27 @@ int main()
 
 
     player->reportStats();
+    */
 
 
+    Dialogue skibidi;
 
+    skibidi.addLine("Im a femboy uwu", "INTRO1");
+    skibidi.getLineByID("INTRO1")->addOption("purr", "CONTINUE", false);
+    skibidi.getLineByID("INTRO1")->addOption("meow", "CONTINUE2");
+    skibidi.getLineByID("INTRO1")->addOption("uwu", "", true);
 
-    //This is where code to start the game's prologue will go when said code actually exists.
+    skibidi.addLine("ommgggg purrrrr", "CONTINUE");
+    skibidi.getLineByID("CONTINUE")->addOption("nvm go back", "INTRO1");
+    skibidi.getLineByID("CONTINUE")->addOption("ew weirdo fuck off", "", true);
+    skibidi.getLineByID("CONTINUE")->addOption("can we redo im kinda retarded", "CONTINUE");
+    skibidi.getLineByID("CONTINUE")->addOption("*diddles your dad*", "CONTINUE2");
 
-    
+    skibidi.addLine("omg this is the climax im gonna cummy wummy", "CONTINUE2");
+    skibidi.getLineByID("CONTINUE2")->addOption("ok can we go back I wanna edge you", "CONTINUE");
+    skibidi.getLastLine()->addOption("poop porn", "INTRO1",1);
+
+    skibidi.play("INTRO1");
+
     return 0;
 }

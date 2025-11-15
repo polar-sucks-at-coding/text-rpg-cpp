@@ -7,7 +7,7 @@
 #include "setting.h"
 #include "utility.h"
 
-Option::Option(MenuType menu_type, int option_number, int max_option_amount)
+Menu_Option::Menu_Option(MenuType menu_type, int option_number, int max_option_amount)
 {
     switch (menu_type) 
     {
@@ -61,17 +61,17 @@ Option::Option(MenuType menu_type, int option_number, int max_option_amount)
     }
 };
 
-void Option::assignText(std::string text_param)
+void Menu_Option::assignText(std::string text_param)
 {
     this->text = text_param;
 }
 
-void Option::typeNumber(int option_number)
+void Menu_Option::typeNumber(int option_number)
 {
     std::cout << option_number;
 }
 
-void Option::typeOption(int option_number)
+void Menu_Option::typeOption(int option_number)
 {
     typeNumber(option_number);
     Utility::typeText(") ", 0);
