@@ -1,35 +1,51 @@
-#ifndef MENU_H
-#define MENU_H
+#pragma once
 #include <string>
+#include <vector>
 
 typedef unsigned int uint;
 
-enum MenuType
+class Menu_Option
 {
-    Main,
-    CharacterCreator,
-    GenderPicker,
-    Settings,
 
+    public:
+    std::string content;
+    int ID;
+    bool active = false;
+    void (*func)();
+    void callOptionFunction();
+    bool ends_menu;
+
+    Menu_Option(std::string _content, int _ID, bool _ends_menu, void (*_func)() = NULL):
+        content{_content},
+        ID{_ID},
+        func{_func},
+        ends_menu{_ends_menu}
+    {
+        if (func != NULL) active = 1;
+    }
 };
-
 
 class Menu
 {
-    MenuType type;
-    uint amount_of_options;
-    std::string title = "";
-    std::string subtext = "";
-    void typeMenuSubtext();
-    void typeMenuTitle();
-    void createOptions();
-    void assignVariables(int amount_of_options = 0, std::string title = "", std::string subtext = "");
     public:
-    void typeTitleAndSubAndCreateOptions();
-    void typeTitleAndSub();
-    Menu(MenuType type);
-    uint player_input;
-    int returnPlayerInput();
-};
+    int option_number;
+    int player_input;
+    int ID_tracker = 0;
 
-#endif
+    std::vector<Menu_Option*> options;
+    std::vector<std::string> titles;
+    std::vector<std::string> subtexts;
+
+    Menu_Option* getOptionFromID(int _id);
+
+    void addOption(const std::string& _content, bool _ends_menu = 0, void (*_func)() = NULL);
+    void addTitle(const std::string& _content);
+    void addSubText(const std::string& _content);
+    void displayTitles();
+    void displaySubtexts();
+    void displayOptions();
+    void displayAll();
+    int getChoice();
+    void play();
+
+};

@@ -12,6 +12,7 @@ namespace Setting
     inline const uint amount_of_settings = 1;
     
     void resetSettings();
+    void changeTypingSpeedPreset();
 };
 
 

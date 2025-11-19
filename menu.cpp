@@ -3,74 +3,91 @@
 #include <iostream>
 #include <unistd.h>
 #include "character.h"
-#include "option.h"
 #include "setting.h"
 #include "utility.h"
 #include "menu.h"
 
-Menu::Menu(MenuType type)
+Menu_Option* Menu::getOptionFromID(int _id)
 {
-    this->type = type;
-
-    switch (this->type)
+    for (Menu_Option* menu_option : options)
     {
-        case Main: assignVariables(3, "Main Menu"); break;
-        case CharacterCreator: assignVariables(2 +1, "Character Creator", "Pick what you want to decide about your character."); break;
-        case GenderPicker: assignVariables(4 +1, "Gender Picker"); break;
-        case Settings: assignVariables(Setting::amount_of_settings + 2, "Settings"); break;
+        if (_id == menu_option->ID + 1) return menu_option;
     }
-    //If amount_of_options has a +1 or +2, that is for the reset and/or finish options.
+    Menu_Option* sex;
+    std::cout << "fucking didnt find option with id idiot"; return sex;
 }
 
-void Menu::typeTitleAndSubAndCreateOptions()
+int Menu::getChoice()
 {
-    this->typeTitleAndSub();
-    this->createOptions();
-    this->player_input = Utility::getPlayerChoice(this->amount_of_options);
+    int player_choice = Utility::getPlayerChoice(options.size());
+
+    if (getOptionFromID(ID_tracker)->func != NULL) getOptionFromID(ID_tracker)->active = 1;
+
+    return player_choice;
 }
 
-void Menu::typeTitleAndSub()
+void Menu::addOption(const std::string& _content, bool _ends_menu, void (*_func)())
 {
-    if (this->title != "") this->typeMenuTitle();
-
-    if (this->subtext != "") this->typeMenuSubtext();
+    options.push_back(new Menu_Option(_content, ID_tracker, _ends_menu, _func));
+    ID_tracker++;
 }
 
-int Menu::returnPlayerInput()
+void Menu::addTitle(const std::string& _content)
 {
-    return this->player_input;
+    titles.emplace_back(_content);
 }
 
-void Menu::assignVariables(int amount_of_options, std::string title, std::string subtext)
+void Menu::addSubText(const std::string& _content)
 {
-    this->amount_of_options = amount_of_options;
-    this->title = title;
-    this->subtext = subtext;
-
+    subtexts.emplace_back(_content);
 }
 
-//Creates options depending on the "amount_of_options" variable and types them out. Deletes them after.
-void Menu::createOptions()
+void Menu::displayOptions()
 {
-    for (int i = 1; i < this->amount_of_options + 1; i++)
+    for (int i = 1; i < (options.size() + 1); i++)
     {
-        Menu_Option* option = new Menu_Option(this->type, i, this->amount_of_options);
-        option->typeOption(i);
-        delete option;
-    }  
+        Utility::typeText(std::to_string(i), 0);
+        Utility::typeText(") ", 0);
+        
+        Utility::typeText(getOptionFromID(i)->content);
+    }
 }
 
-void Menu::typeMenuTitle()
+void Menu::displayTitles()
 {
-
-    std::cout << "      ";
-    Utility::typeText(this->title);
-    Utility::makeSpace();
+    for (std::string title : titles)
+    {
+        Utility::typeText(title);
+        Utility::makeSpace();
+    }
 }
 
-void Menu::typeMenuSubtext()
+void Menu::displaySubtexts()
 {
-    Utility::typeText(this->subtext);
-    Utility::doubleSpace();
+    for (std::string subtext : subtexts)
+    {
+        Utility::typeText(subtext);
+    }
 }
 
+void Menu::displayAll()
+{
+    displayTitles();
+    displaySubtexts();
+    displayOptions();
+    
+}
+
+void Menu::play()
+{
+    while (1)
+    {
+        displayAll();
+        player_input = getChoice();
+
+        if (getOptionFromID(player_input)->active) getOptionFromID(player_input)->func();
+        
+        if (getOptionFromID(player_input)->ends_menu) break;
+    }
+    
+}
