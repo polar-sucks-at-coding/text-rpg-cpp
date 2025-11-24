@@ -1,12 +1,16 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#pragma once
 #include <string>
+#include "item.h"
+#include "inventory.h"
 
 typedef unsigned int uint;
 
-static uint amount_of_stats = 6;
+enum EnemyType
+{
+    ShitPisser
+};
 
-enum Gender
+enum GenderPreset
 {
     Male,
     Female,
@@ -14,46 +18,36 @@ enum Gender
     Inanimate
 };
 
-enum EnemyType
-{
-    ShitPisser
-};
-
+class Inventory;
 
 class Character
 {
-public: 
-Gender gender;
-uint HP;
-uint maxHP;
-std::string name;
-std::string pronoun1;
-std::string pronoun2;
-std::string pronoun3;
+    public: 
+    GenderPreset gender_enum = Inanimate;
+    std::string gender;
+    uint HP;
+    uint max_HP;
+    std::string name;
+    std::string pronoun1;
+    std::string pronoun2;
+    std::string pronoun3;
+    Inventory *inventory;
 
-public:
-Character();
-void assignGender(Gender gender_param);
-void assignPronouns();
-/*
-void assignBaseStats();
-*/
-void reportStats();
-void reportPronouns();
-void reportName();
-};
-
-
-class Enemy : Character
-{
-    
-};
-
-class NPC : Character
-{
-    
+    ~Character();
+    Character(const std::string& _name = "Default Char Name", uint _max_HP = 1, GenderPreset _gender_preset = Inanimate);
+    void assignGender(const std::string& _gender);
+    void assignPronouns();
+    void reportGender();
+    void assignGenderEnum();
+    /*
+    void assignBaseStats();
+    */
+    void reportStats();
+    void reportPronouns();
+    void reportName();
+    void restoreHP(int _amount);
+    void returnToMaxHP();
+    void reduceHP(int _amount);
 };
 
 static Character* player;
-
-#endif

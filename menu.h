@@ -36,6 +36,7 @@ class Menu
     std::vector<std::string> titles;
     std::vector<std::string> subtexts;
 
+    ~Menu();
     Menu_Option* getOptionFromID(int _id);
 
     void addOption(const std::string& _content, bool _ends_menu = 0, void (*_func)() = NULL);

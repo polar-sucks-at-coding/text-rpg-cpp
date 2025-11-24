@@ -7,6 +7,14 @@
 #include "utility.h"
 #include "menu.h"
 
+Menu::~Menu()
+{
+    for (Menu_Option* option : options)
+    {
+        delete option;
+    }
+}
+
 Menu_Option* Menu::getOptionFromID(int _id)
 {
     for (Menu_Option* menu_option : options)

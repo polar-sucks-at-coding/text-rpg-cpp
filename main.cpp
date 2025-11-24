@@ -1,7 +1,9 @@
+#include <climits>
 #include <pthread.h>
 #include <sys/time.h>
 #include <unistd.h>
 #include "character.h"
+#include "item.h"
 #include "menu.h"
 #include "setting.h"
 #include "utility.h"
@@ -55,7 +57,30 @@ int main()
     Utility::clearHistory();
     Setting::resetSettings();
 
+    Character* character = new Character("character", 500);
+    character->HP = 100;
+    for (int i = 0; i < 20; i++)
+    {
+        Health_Potion* peepee = new Health_Potion();
+        character->inventory->addItem(peepee);
+    }
+    for (Item* poo : character->inventory->items)
+    {
+        if (!poo) continue;
+        if (auto hp = dynamic_cast<Health_Potion*>(poo)){
+            hp->use(character);
+        } 
+        else{
+            poo->use(character);
+        }
+    }
+    delete character;
+
+
+    /*
     mainMenuShenanigans();
+    */
+    
 
     /*Menu *main_menu = new Menu();
     main_menu->addTitle("Main Menu");
@@ -99,7 +124,7 @@ int main()
     skibidi.getLineByID("CONTINUE")->addOption("can we redo im kinda retarded", "CONTINUE");
     skibidi.getLineByID("CONTINUE")->addOption("*diddles your dad*", "CONTINUE2");
 
-    skibidi.addLine("omg this is the climax im gonna cummy wummy", "CONTINUE2");
+    skibidi.addLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "CONTINUE2");
     skibidi.getLineByID("CONTINUE2")->addOption("ok can we go back I wanna edge you", "CONTINUE");
     skibidi.getLastLine()->addOption("poop porn", "INTRO1",1);
 
