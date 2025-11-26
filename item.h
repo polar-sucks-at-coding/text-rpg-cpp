@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "character.h"
 
 class Character;
 
@@ -10,10 +9,10 @@ class Item
     bool destroyed_on_use;
     std::string name;
     virtual void use(Character *_character);
-    Item()
+    Item(bool _destroyed_on_use = true)
     {
         this->name = "Default Item";
-        this->destroyed_on_use = true;
+        this->destroyed_on_use = _destroyed_on_use;
     };
     ~Item();
     

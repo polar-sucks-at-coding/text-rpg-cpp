@@ -4,21 +4,29 @@
 #include "character.h"
 #include "utility.h"
 #include "item.h"
+#include "inventory.h"
 
 typedef unsigned int uint;
+
+void Character::addAbility(Ability* _abl)
+{
+    abilities.push_back(_abl);
+}
 
 Character::~Character()
 {
     delete this->inventory;
 }
 
-Character::Character(const std::string& _name, uint _max_HP, GenderPreset _gender)
+Character::Character(const std::string& _name, uint _max_HP, GenderPreset _gender_enum)
 {
     this->name = _name;
     this->max_HP = _max_HP;
     this->HP = _max_HP;
-    this->gender = _gender;
+    this->gender_enum = _gender_enum;
     this->inventory = new Inventory();
+    this->assignPronouns();
+    this->assignGenderString();
 }
 
 void Character::returnToMaxHP()
@@ -44,9 +52,15 @@ void Character::restoreHP(int _amount)
     Utility::typeText(std::to_string(this->HP));
 }
 
-void Character::assignGender(const std::string& _gender)
+void Character::assignGenderString()
 {   
-    this->gender = _gender;
+    switch(this->gender_enum)
+    {
+        case Male: this->gender = "male"; break;
+        case Female: this->gender = "female"; break;
+        case Neutral: this->gender = "neutral"; break;
+        case Inanimate: this->gender = "inanimate"; break;
+    }
 }
 
 void Character::assignPronouns()

@@ -1,4 +1,3 @@
-#include <climits>
 #include <pthread.h>
 #include <sys/time.h>
 #include <unistd.h>
@@ -7,8 +6,10 @@
 #include "menu.h"
 #include "setting.h"
 #include "utility.h"
-#include <iostream>
 #include "dialog.h"
+#include "fight.h"
+#include "ability.h"
+#include <iostream>
 
 void settingsMenuShenanigans()
 {
@@ -22,7 +23,6 @@ void settingsMenuShenanigans()
     
     delete settings_menu;
 }
-
 void mainMenuShenanigans()
 {
 
@@ -57,6 +57,35 @@ int main()
     Utility::clearHistory();
     Setting::resetSettings();
 
+    /*
+    mainMenuShenanigans();
+    */
+    
+    //Fight Test
+
+    Fight* test_fight = new Fight();
+    test_fight->addTeam("sexers");
+    std::cout << test_fight->returnTeamByName("sexers")->name << "\n";
+
+    Character* guy1 = new Character("guy");
+    Character* guy2 = new Character("guy2");
+
+    Fart* fart = new Fart();
+
+    guy1->addAbility(fart);
+    fart->addTarget(guy2);
+    fart->use(guy1);
+
+
+
+
+    //test_fight->returnTeamByName("sexers")->addFighter(guy1);
+
+    //std::cout << test_fight->returnTeamByName("sexers")->returnFighterByName("guy")->name << "\n";
+
+    //Inventory Test
+
+    /*
     Character* character = new Character("character", 500);
     character->HP = 100;
     for (int i = 0; i < 20; i++)
@@ -75,12 +104,10 @@ int main()
         }
     }
     delete character;
-
-
-    /*
-    mainMenuShenanigans();
     */
-    
+
+
+    //Menu Test
 
     /*Menu *main_menu = new Menu();
     main_menu->addTitle("Main Menu");
@@ -89,27 +116,7 @@ int main()
     main_menu->play();
     if (main_menu->player_input == 1) Utility::typeText("meowoewdowodw");*/
 
-    /*
-    bool fuck = 1;
-    Menu* main_menu = new Menu(Main);
-    while (fuck)
-    {
-        main_menu->typeTitleAndSubAndCreateOptions();
-
-        switch (main_menu->returnPlayerInput())
-        {
-            case 1: createNewGame(); fuck = 0; break;
-
-            case 3: createSettings(); break;
-            
-            default: Utility::notImplemented(); break;
-        }
-    }    
-    delete main_menu;
-
-
-    player->reportStats();
-    */
+    //Dialogue Test
 
     /*Dialogue skibidi;
 
@@ -129,14 +136,6 @@ int main()
     skibidi.getLastLine()->addOption("poop porn", "INTRO1",1);
 
     skibidi.play("INTRO1");*/
-
-    /*Menu *menu = new Menu();
-
-    menu->addTitle("meow");
-    menu->addSubText("purr");
-    menu->addSubText("awwww");
-    menu->displayTitles();
-    menu->displaySubtexts();*/
 
     return 0;
 }

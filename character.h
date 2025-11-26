@@ -1,14 +1,8 @@
 #pragma once
 #include <string>
-#include "item.h"
-#include "inventory.h"
+#include <vector>
 
 typedef unsigned int uint;
-
-enum EnemyType
-{
-    ShitPisser
-};
 
 enum GenderPreset
 {
@@ -19,6 +13,7 @@ enum GenderPreset
 };
 
 class Inventory;
+class Ability;
 
 class Character
 {
@@ -31,17 +26,16 @@ class Character
     std::string pronoun1;
     std::string pronoun2;
     std::string pronoun3;
+    std::vector<Ability*> abilities;
     Inventory *inventory;
 
     ~Character();
-    Character(const std::string& _name = "Default Char Name", uint _max_HP = 1, GenderPreset _gender_preset = Inanimate);
-    void assignGender(const std::string& _gender);
+    Character(const std::string& _name = "Default Char Name", uint _max_HP = 1, GenderPreset _gender_enum = Inanimate);
+    void assignGenderString();
     void assignPronouns();
     void reportGender();
     void assignGenderEnum();
-    /*
-    void assignBaseStats();
-    */
+    void addAbility(Ability* _abl);
     void reportStats();
     void reportPronouns();
     void reportName();
