@@ -39,8 +39,8 @@ class Character
     void reportStats();
     void reportPronouns();
     void reportName();
-    void restoreHP(int _amount);
-    void returnToMaxHP();
+    void restoreHP(int _amount, bool _report = 1);
+    void returnToMaxHP(bool _report = 1);
     void reduceHP(int _amount);
 };
 

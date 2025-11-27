@@ -6,13 +6,12 @@ class Character;
 class Item
 {
     public:
-    bool destroyed_on_use;
+    bool destroyed_on_use = true;
     std::string name;
     virtual void use(Character *_character);
-    Item(bool _destroyed_on_use = true)
+    Item()
     {
         this->name = "Default Item";
-        this->destroyed_on_use = _destroyed_on_use;
     };
     ~Item();
     
@@ -25,6 +24,7 @@ class Health_Potion : public Item
     void use (Character* _character);
     Health_Potion()
     {
+        this->destroyed_on_use = false;
         this->name = "Health Potion";
     };
 };

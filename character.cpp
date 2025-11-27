@@ -2,6 +2,7 @@
 #include <string>
 #include <unistd.h>
 #include "character.h"
+#include "ability.h"
 #include "utility.h"
 #include "item.h"
 #include "inventory.h"
@@ -16,6 +17,10 @@ void Character::addAbility(Ability* _abl)
 Character::~Character()
 {
     delete this->inventory;
+    for (Ability* abil : abilities)
+    {
+        delete abil;
+    }
 }
 
 Character::Character(const std::string& _name, uint _max_HP, GenderPreset _gender_enum)
@@ -29,9 +34,16 @@ Character::Character(const std::string& _name, uint _max_HP, GenderPreset _gende
     this->assignGenderString();
 }
 
-void Character::returnToMaxHP()
+void Character::returnToMaxHP(bool _report)
 {
     this->HP = this->max_HP;
+    if (_report)
+    {
+        Utility::typeText(this->name, 0);
+        Utility::typeText("'s HP was restored it its maximum of ", 0);
+        Utility::typeText(std::to_string(this->max_HP), 0);
+        Utility::typeText(".");
+    }
 }
 
 void Character::reduceHP(int _amount)
@@ -40,16 +52,29 @@ void Character::reduceHP(int _amount)
     this->HP -= _amount;
 }
 
-void Character::restoreHP(int _amount)
+void Character::restoreHP(int _amount, bool _report)
 {
+    if (this->HP == this->max_HP) 
+    {
+        Utility::typeText(this->name, 0);
+        Utility::typeText("'s HP is already at the maximum.");
+        return;
+    }
+
     if ((_amount + this->HP) > this->max_HP){
         returnToMaxHP(); Utility::typeText("HP restored to max."); return;
     } 
     this->HP += _amount;
-    Utility::typeText("HP restored by ", 0);
-    Utility::typeText(std::to_string(_amount));
-    Utility::typeText("HP restored to: ", 0);
-    Utility::typeText(std::to_string(this->HP));
+    if (_report)
+    {
+        Utility::typeText(this->name, 0);
+        Utility::typeText("'s ", 0);
+        Utility::typeText("HP has been restored by ", 0);
+        Utility::typeText(std::to_string(_amount));
+        Utility::typeText("HP restored to: ", 0);
+        Utility::typeText(std::to_string(this->HP), 0);
+        Utility::typeText(".");
+    }
 }
 
 void Character::assignGenderString()

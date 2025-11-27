@@ -31,13 +31,14 @@ Character* Fight_Team::returnFighterByName(const std::string& _name)
     return nullptr;
 }
 
-void Fight::addTeam(const std::string& _name)
+void Fight::createTeam(const std::string& _name)
 {
     teams.push_back(new Fight_Team(_name));
 }
 
 Fight_Team* Fight::returnTeamByName(const std::string& _name)
 {
+    //Fight_Team* fallback_team;
     if (teams.empty()) {Utility::typeText("No teams to return."); return nullptr;}
 
     for (Fight_Team* team : teams)

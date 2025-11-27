@@ -9,7 +9,7 @@ void Ability::removeAllTargets()
 
 void Ability::use(Character* _user)
 {
-    Utility::typeText("Im the default item yeawdwadwadasdsa");
+    Utility::typeText("Im the default ability yeawdwadwadasdsa");
 }
 
 void Ability::addTarget(Character* _targ)

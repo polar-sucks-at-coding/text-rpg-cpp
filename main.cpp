@@ -2,6 +2,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include "character.h"
+#include "inventory.h"
 #include "item.h"
 #include "menu.h"
 #include "setting.h"
@@ -63,8 +64,9 @@ int main()
     
     //Fight Test
 
+    
     Fight* test_fight = new Fight();
-    test_fight->addTeam("sexers");
+    test_fight->createTeam("sexers");
     std::cout << test_fight->returnTeamByName("sexers")->name << "\n";
 
     Character* guy1 = new Character("guy");
@@ -77,17 +79,16 @@ int main()
     fart->use(guy1);
 
 
-
-
     //test_fight->returnTeamByName("sexers")->addFighter(guy1);
 
     //std::cout << test_fight->returnTeamByName("sexers")->returnFighterByName("guy")->name << "\n";
+    
 
     //Inventory Test
 
     /*
     Character* character = new Character("character", 500);
-    character->HP = 100;
+    character->HP = 400;
     for (int i = 0; i < 20; i++)
     {
         Health_Potion* peepee = new Health_Potion();
@@ -96,12 +97,12 @@ int main()
     for (Item* poo : character->inventory->items)
     {
         if (!poo) continue;
+
         if (auto hp = dynamic_cast<Health_Potion*>(poo)){
             hp->use(character);
-        } 
-        else{
-            poo->use(character);
         }
+
+        continue;
     }
     delete character;
     */

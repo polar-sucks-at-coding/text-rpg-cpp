@@ -5,6 +5,8 @@
 
 typedef unsigned int uint;
 
+class Character;
+
 namespace Utility
 {
 void makeSpace();
@@ -16,6 +18,7 @@ void typeText(std::string text, bool make_space = 1, int speed = Setting::typing
 int getPlayerChoice(int amount_of_options, bool clear_history = 0);
 void reportInvalidOption();
 bool isDigits(std::string str);
+static Character* fallback_ptr;
 };
 
 #endif
