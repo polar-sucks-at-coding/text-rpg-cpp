@@ -1,4 +1,5 @@
 #pragma once
+#include "ability.h"
 #include <string>
 #include <vector>
 
@@ -30,7 +31,7 @@ class Character
     Inventory *inventory;
 
     ~Character();
-    Character(const std::string& _name = "Default Char Name", uint _max_HP = 1, GenderPreset _gender_enum = Inanimate);
+    Character(const std::string& _name = "Default Char Name", const uint &_max_HP = 1, GenderPreset _gender_enum = Inanimate);
     void assignGenderString();
     void assignPronouns();
     void reportGender();
@@ -39,9 +40,26 @@ class Character
     void reportStats();
     void reportPronouns();
     void reportName();
-    void restoreHP(int _amount, bool _report = 1);
-    void returnToMaxHP(bool _report = 1);
-    void reduceHP(int _amount);
+    void restoreHP(const int &_amount, const bool &_report = 1);
+    void returnToMaxHP(const bool &_report = 1);
+    void reduceHP(const int &_amount);
+    Ability* returnAbilityByName(const std::string& _n);
+    void useAbilityByName(const std::string& _n);
+    void pickTargetForPlayer();
 };
 
 static Character* player;
+
+namespace Characters
+{
+    class Shitpisser : public Character
+    {
+        public:
+        Shitpisser()
+        {
+            this->name = "Shitpisser";
+            abilities.push_back(new Abilities::Shit());
+            abilities.push_back(new Abilities::Piss());
+        }
+    };
+}

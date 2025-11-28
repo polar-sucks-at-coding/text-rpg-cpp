@@ -12,6 +12,8 @@
 #include "ability.h"
 #include <iostream>
 
+typedef Character C;
+
 void settingsMenuShenanigans()
 {
     Menu* settings_menu = new Menu();
@@ -57,6 +59,8 @@ int main()
 {
     Utility::clearHistory();
     Setting::resetSettings();
+    
+    player = new Character();
 
     /*
     mainMenuShenanigans();
@@ -69,14 +73,23 @@ int main()
     test_fight->createTeam("sexers");
     std::cout << test_fight->returnTeamByName("sexers")->name << "\n";
 
-    Character* guy1 = new Character("guy");
-    Character* guy2 = new Character("guy2");
+    Characters::Shitpisser* sexer = new Characters::Shitpisser();
 
-    Fart* fart = new Fart();
+    std::vector<C*> test_targets = {new Character("guy1", 100), new Character("guy2", 100), new C("guy3", 100), new C("guy4", 100), new C("guy5", 100) };
+    std::cout << "1" << "\n";
 
-    guy1->addAbility(fart);
-    fart->addTarget(guy2);
-    fart->use(guy1);
+    //Abilities::Shit* shit = new Abilities::Shit();
+    //sexer->addAbility(shit);
+    sexer->returnAbilityByName("Shit")->addTarget(test_targets);
+    sexer->useAbilityByName("Shit");
+
+    //Abilities::Piss* piss = new Abilities::Piss();
+    //sexer->addAbility(piss);
+    sexer->returnAbilityByName("Piss")->addTarget(test_targets);
+    sexer->useAbilityByName("Piss");
+
+    delete sexer;
+
 
 
     //test_fight->returnTeamByName("sexers")->addFighter(guy1);
@@ -137,6 +150,8 @@ int main()
     skibidi.getLastLine()->addOption("poop porn", "INTRO1",1);
 
     skibidi.play("INTRO1");*/
+
+    delete player;
 
     return 0;
 }

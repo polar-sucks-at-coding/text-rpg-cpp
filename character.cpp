@@ -9,8 +9,27 @@
 
 typedef unsigned int uint;
 
+void Character::useAbilityByName(const std::string& _n)
+{
+    returnAbilityByName(_n)->use(this);
+}
+
+Ability* Character::returnAbilityByName(const std::string& _name)
+{
+    for (Ability* a : abilities)
+    {
+        if (a->name == _name) return a;
+    }
+
+    return nullptr;
+}
+
 void Character::addAbility(Ability* _abl)
 {
+    for (Ability* bwa : abilities)
+    {
+        if (bwa->name == _abl->name) {Utility::typeText("Character already has this ability."); return;}
+    }
     abilities.push_back(_abl);
 }
 
@@ -23,7 +42,7 @@ Character::~Character()
     }
 }
 
-Character::Character(const std::string& _name, uint _max_HP, GenderPreset _gender_enum)
+Character::Character(const std::string& _name, const uint &_max_HP, GenderPreset _gender_enum)
 {
     this->name = _name;
     this->max_HP = _max_HP;
@@ -34,7 +53,7 @@ Character::Character(const std::string& _name, uint _max_HP, GenderPreset _gende
     this->assignGenderString();
 }
 
-void Character::returnToMaxHP(bool _report)
+void Character::returnToMaxHP(const bool &_report)
 {
     this->HP = this->max_HP;
     if (_report)
@@ -46,13 +65,17 @@ void Character::returnToMaxHP(bool _report)
     }
 }
 
-void Character::reduceHP(int _amount)
+void Character::reduceHP(const int &_amount)
 {
-    if ((this->HP - _amount) < 0) this->HP = 0; return;
-    this->HP -= _amount;
+    if ((this->HP - _amount) < 0) this->HP = 0;
+    else this->HP -= _amount;
+    Utility::typeText(this->name, 0);
+    Utility::typeText("'s HP has dropped to ", 0);
+    Utility::typeText(std::to_string(this->HP), 0);
+    Utility::typeText(".");
 }
 
-void Character::restoreHP(int _amount, bool _report)
+void Character::restoreHP(const int &_amount, const bool &_report)
 {
     if (this->HP == this->max_HP) 
     {
@@ -61,8 +84,8 @@ void Character::restoreHP(int _amount, bool _report)
         return;
     }
 
-    if ((_amount + this->HP) > this->max_HP){
-        returnToMaxHP(); Utility::typeText("HP restored to max."); return;
+    if ((_amount + this->HP) >= this->max_HP){
+        returnToMaxHP(); return;
     } 
     this->HP += _amount;
     if (_report)

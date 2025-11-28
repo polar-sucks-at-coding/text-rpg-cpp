@@ -4,11 +4,23 @@
 
 Fight::~Fight()
 {
-    if (delete_teams_on_destruct)
+    if (teams_temporary)
     {
         for (Fight_Team* team : teams)
         {
             delete team;
+        }
+    }
+}
+
+Fight_Team::~Fight_Team()
+{
+    if (fighters_temporary)
+    {
+        for (Character* f : fighters)
+        {
+            if (f == player) continue;
+            delete f;
         }
     }
 }
@@ -20,7 +32,8 @@ void Fight_Team::addFighter(Character* _character)
 
 Character* Fight_Team::returnFighterByName(const std::string& _name)
 {
-    if (fighters.empty()) {Utility::typeText("This team is empty."); return nullptr;}
+    Character* fallback_fighter;
+    if (fighters.empty()) {Utility::typeText("This team is empty."); return fallback_fighter;}
     for (Character* fighter : fighters)
     {
         if (!fighter) continue;
@@ -28,7 +41,7 @@ Character* Fight_Team::returnFighterByName(const std::string& _name)
     }
 
     Utility::typeText("Couldn't find the fighter you're looking for.");
-    return nullptr;
+    return fallback_fighter;
 }
 
 void Fight::createTeam(const std::string& _name)
@@ -38,8 +51,8 @@ void Fight::createTeam(const std::string& _name)
 
 Fight_Team* Fight::returnTeamByName(const std::string& _name)
 {
-    //Fight_Team* fallback_team;
-    if (teams.empty()) {Utility::typeText("No teams to return."); return nullptr;}
+    Fight_Team* fallback_team;
+    if (teams.empty()) {Utility::typeText("No teams to return."); return fallback_team;}
 
     for (Fight_Team* team : teams)
     {
@@ -48,5 +61,5 @@ Fight_Team* Fight::returnTeamByName(const std::string& _name)
     }
 
     Utility::typeText("Couldn't find the team you're looking for."); 
-    return nullptr;
+    return fallback_team;
 }

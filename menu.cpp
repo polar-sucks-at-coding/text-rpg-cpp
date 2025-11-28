@@ -15,7 +15,7 @@ Menu::~Menu()
     }
 }
 
-Menu_Option* Menu::getOptionFromID(int _id)
+Menu_Option* Menu::getOptionFromID(const int &_id)
 {
     for (Menu_Option* menu_option : options)
     {
@@ -34,7 +34,7 @@ int Menu::getChoice()
     return player_choice;
 }
 
-void Menu::addOption(const std::string& _content, bool _ends_menu, void (*_func)())
+void Menu::addOption(const std::string& _content, const bool& _ends_menu, void (*_func)())
 {
     options.push_back(new Menu_Option(_content, ID_tracker, _ends_menu, _func));
     ID_tracker++;

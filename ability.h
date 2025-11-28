@@ -1,22 +1,26 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "character.h"
+
+
+class Character;
+
 
 class Ability
 {
     public:
     std::string name;
     std::vector<Character*> targets;
-    int target_amount; // amount of characters the ability can target
-    virtual void use(Character* _user);
-    void addTarget(Character* _targ);
+    int max_targets; // amount of characters the ability can target
+    virtual void use(Character* _usr);
+    void addTarget(const std::vector<Character*> &_targs);
     void removeAllTargets();
+    ~Ability();
 
     Ability()
     {
         this->name = "Default Ability";
-        this->target_amount = 1;
+        this->max_targets = 1;
     }
 
 };
@@ -24,10 +28,36 @@ class Ability
 class Fart : public Ability
 {
     public:
-    void use(Character* _user);
+    void use(Character* _c);
     Fart()
     {
         this->name = "Fart";
-        this->target_amount = 3;
+        this->max_targets = 3;
     }
 };
+
+namespace Abilities
+{
+    class Shit : public Ability
+    {
+        public:
+        void use(Character* _c);
+        Shit()
+        {
+            this->name = "Shit";
+            this->max_targets = 5;
+        }
+    };
+
+    class Piss : public Ability
+    {
+        public:
+        void use(Character* _c);
+        Piss()
+        {
+            this->name = "Piss";
+            this->max_targets = 5;
+        }
+    };
+}
+

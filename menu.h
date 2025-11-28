@@ -37,9 +37,9 @@ class Menu
     std::vector<std::string> subtexts;
 
     ~Menu();
-    Menu_Option* getOptionFromID(int _id);
+    Menu_Option* getOptionFromID(const int &_id);
 
-    void addOption(const std::string& _content, bool _ends_menu = 0, void (*_func)() = NULL);
+    void addOption(const std::string& _content, const bool &_ends_menu = 0, void (*_func)() = NULL);
     void addTitle(const std::string& _content);
     void addSubText(const std::string& _content);
     void displayTitles();
