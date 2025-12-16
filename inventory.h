@@ -19,9 +19,8 @@ class Inventory
     Item* returnCellItem(uint _cell);
     Item* returnItemFiller(uint _cell);
     size_t returnIndexFromCell(uint _cell);
-    void addItem(Item* _item); //This returns a bool to check if adding the item was successful or not.
+    void addItem(Item* _item);
     void showUI();
-    // void createSlots();
     Inventory();
     ~Inventory();
 };
