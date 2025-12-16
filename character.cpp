@@ -1,13 +1,83 @@
 #include <pthread.h>
 #include <string>
 #include <unistd.h>
+#include <ctime>
+#include <cstdlib>
 #include "character.h"
 #include "ability.h"
 #include "utility.h"
 #include "item.h"
 #include "inventory.h"
+#include "equipment.h"
 
 typedef unsigned int uint;
+
+void Character::accessInventory()
+{
+    if (this->player_controlled) {this->showInventoryUI(); return;}
+}
+
+void Character::showInventoryUI()
+{
+   this->inventory->showUI();
+}
+
+void Character::speedRoll(const int& _amount)
+{
+    srand(time(0));
+    int nombor = (rand() % (_amount + 1));
+    
+    srand(time(0));
+    if(rand() % 2)
+    {
+        this->fight_speed += nombor; return;
+    }
+    this->fight_speed -=nombor;
+    
+    if (this->fight_speed <= 0)
+    {
+        this->fight_speed = 1; 
+    }
+}  
+
+void Character::resetSpeedToDefault()
+{
+    this->fight_speed = this->default_fight_speed;
+}
+
+void Character::listEquipment()
+{
+    for (Item *item : inventory->items)
+    {
+        if (!item) continue;
+
+        auto eqp = dynamic_cast<Equipment*>(item);
+
+        if (eqp && eqp->equipped)
+        {
+            Utility::typeText(eqp->name);
+        }
+    }
+}
+
+void Character::equipItem(Equipment *_equipment)
+{
+    for (Item* item : inventory->items)
+    {
+        if (_equipment == item)
+        {
+            _equipment->equipped = true;
+            inventory->equipment_vtr.push_back(_equipment);
+            return;
+        }
+    }
+    Utility::typeText("This item isn't equipabble.");
+}
+
+void Character::addItemToInv(Item* _item)
+{
+    this->inventory->addItem(_item);
+}
 
 void Character::useAbilityByName(const std::string& _n)
 {
@@ -51,6 +121,7 @@ Character::Character(const std::string& _name, const uint &_max_HP, GenderPreset
     this->inventory = new Inventory();
     this->assignPronouns();
     this->assignGenderString();
+    this->fight_speed = default_fight_speed;
 }
 
 void Character::returnToMaxHP(const bool &_report)

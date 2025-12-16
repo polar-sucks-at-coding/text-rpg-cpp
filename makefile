@@ -1,3 +1,3 @@
 all: toes
 toes:
-	g++ *.h *.cpp -o text-rpg 
+	g++ *.h *.cpp -lncurses -o text-rpg 

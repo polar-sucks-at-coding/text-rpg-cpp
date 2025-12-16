@@ -9,6 +9,7 @@
 #include "utility.h"
 #include "setting.h"
 #include <typeinfo>
+#include <ncurses.h>
 
 bool Utility::isDigits(std::string str)
 {

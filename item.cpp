@@ -4,7 +4,7 @@
 
 Item::~Item() = default;
 
-void Health_Potion::use(Character* _character)
+void Items::Health_Potion::use(Character* _character)
 {
     _character->restoreHP(this->HP_to_restore);
 }

@@ -2,6 +2,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include "character.h"
+#include "equipment.h"
 #include "inventory.h"
 #include "item.h"
 #include "menu.h"
@@ -57,18 +58,65 @@ void mainMenuShenanigans()
 
 int main()
 {
-    Utility::clearHistory();
+    //Utility::clearHistory();
     Setting::resetSettings();
     
+    
     player = new Character();
+    player->player_controlled = true;
+
+    player->is_essential = true;
+
+    Armors::Fart_Coat *fart_coat = new Armors::Fart_Coat();
+    Weapons::Fart_Sword *fart_sword = new Weapons::Fart_Sword();
+
+    player->addItemToInv(fart_coat);
+    player->addItemToInv(fart_sword); 
+
+    player->accessInventory();
+    
+    /*
+
+    Fight* test = new Fight();
+
+    test->createTeam("balls team");
+
+    Character* balls = new Character("balls1");
+    Character* balls2 = new Character("balls2");
+    Character* balls3 = new Character("balls3");
+    Character* balls4 = new Character("balls4");
+
+    balls->fight_speed = 500;
+    balls2->fight_speed = 5000;
+    balls3->fight_speed = 1000;
+    balls4->fight_speed = 2000;
+
+    test->returnTeamByName("balls team")->addFighter(balls);
+    test->returnTeamByName("balls team")->addFighter(balls2);
+    test->returnTeamByName("balls team")->addFighter(balls3);
+    test->returnTeamByName("balls team")->addFighter(balls4);
+
+    test->makeTurnOrder();
+
+    for (Character* peepee : test->fighters_in_order)
+    {
+        std::cout << peepee->name << "\n";
+    }
+
+    */
 
     /*
     mainMenuShenanigans();
     */
-    
-    //Fight Test
 
     
+    //Equipment Test
+
+
+
+    //Fight Test
+
+    /*
     Fight* test_fight = new Fight();
     test_fight->createTeam("sexers");
     std::cout << test_fight->returnTeamByName("sexers")->name << "\n";
@@ -80,16 +128,16 @@ int main()
 
     //Abilities::Shit* shit = new Abilities::Shit();
     //sexer->addAbility(shit);
-    sexer->returnAbilityByName("Shit")->addTarget(test_targets);
+    sexer->returnAbilityByName("Shit")->addTargetVector(test_targets);
     sexer->useAbilityByName("Shit");
 
     //Abilities::Piss* piss = new Abilities::Piss();
     //sexer->addAbility(piss);
-    sexer->returnAbilityByName("Piss")->addTarget(test_targets);
+    sexer->returnAbilityByName("Piss")->addTargetVector(test_targets);
     sexer->useAbilityByName("Piss");
 
     delete sexer;
-
+    */
 
 
     //test_fight->returnTeamByName("sexers")->addFighter(guy1);

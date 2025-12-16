@@ -13,7 +13,8 @@ class Ability
     std::vector<Character*> targets;
     int max_targets; // amount of characters the ability can target
     virtual void use(Character* _usr);
-    void addTarget(const std::vector<Character*> &_targs);
+    void addTargetVector(const std::vector<Character*> &_targs);
+    void addSingletarget(Character* _t);
     void removeAllTargets();
     ~Ability();
 

@@ -5,6 +5,11 @@
 
 typedef Character C;
 
+void Ability::addSingletarget(C* _t)
+{
+    targets.push_back(_t);
+}
+
 Ability::~Ability()
 {
     removeAllTargets();
@@ -19,7 +24,7 @@ void Ability::use(Character* _user)
     Utility::typeText("Im the default ability yeawdwadwadasdsa");
 }
 
-void Ability::addTarget(const std::vector<Character*> &_targs)
+void Ability::addTargetVector(const std::vector<Character*> &_targs)
 {
     if (_targs.size() == 0) {Utility::typeText("No targets provided in arguments"); return;}
 

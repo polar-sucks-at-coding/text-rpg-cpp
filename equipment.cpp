@@ -1,1 +1,4 @@
-//just sitting here for now
+#include "equipment.h"
+
+Equipment::Equipment()
+{}
