@@ -8,8 +8,9 @@ typedef unsigned int uint;
 class Inventory
 {
     public:
-    uint cells_per_line = 6; //temporary
-    size_t cell_amount = 50;
+    uint cols = 10;
+    uint rows = 10;
+    size_t cell_amount = cols * rows;
     std::vector<Item*> items;
     std::vector<Equipment*> equipment_vtr;
     std::vector<uint> full_cells;

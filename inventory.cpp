@@ -23,9 +23,6 @@ void Inventory::showUI()
     //curs_set(0);            // hide cursor
     clear();
 
-    int cols = cells_per_line;
-    int rows = cell_amount / cols;
-
     move(0, 0);
 
     // Drawing all cells
@@ -126,9 +123,9 @@ void Inventory::showUI()
 
 size_t Inventory::returnIndexFromCell(uint _cell)
 {
-    int cx = _cell % cells_per_line;
-    int cy = _cell / cells_per_line;
-    int cidx = cx + cy * cells_per_line;
+    int cx = _cell % cols;
+    int cy = _cell / cols;
+    int cidx = cx + cy * cols;
     return cidx;
 }
 
@@ -165,8 +162,6 @@ bool Inventory::cellEmpty(uint _cell)
 
 void Inventory::addItem(Item* _item)
 {
-    uint cols = cells_per_line;
-    uint rows = cell_amount / cols;
     uint item_size = _item->x_size * _item->y_size;
     size_t start;
     std::vector<uint> chosen_cells;
